@@ -128,7 +128,7 @@ theme.mpd = lain.widget.mpd({
     settings = function()
         local artist = ""
         local title = ""
-	local time = ""
+        local time = ""
         if mpd_now.state == "play" then
             artist = " " .. mpd_now.artist .. " "
             title  = mpd_now.title
