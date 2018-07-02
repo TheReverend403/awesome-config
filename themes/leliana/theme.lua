@@ -78,7 +78,7 @@ local separators = lain.util.separators
 local date = awful.widget.watch(
     "date +'%a %d %b'", 1,
     function(widget, stdout)
-        widget:set_markup(" " .. markup.font(theme.font, stdout))
+        widget:set_markup(markup.font(theme.font, stdout))
     end
 )
 
@@ -86,7 +86,7 @@ local date = awful.widget.watch(
 local clock = awful.widget.watch(
     "date +'%R'", 1,
     function(widget, stdout)
-        widget:set_markup(" " .. markup.font(theme.font, stdout))
+        widget:set_markup(markup.font(theme.font, stdout))
     end
 )
 
@@ -150,7 +150,7 @@ theme.mpd = lain.widget.mpd({
 })
 
 -- Separators
-local spr = wibox.widget.textbox("   ∕  ")
+local spr = wibox.widget.textbox("   ∕   ")
 local space = wibox.widget.textbox(' ')
 
 function theme.at_screen_connect(s)
