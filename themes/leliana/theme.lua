@@ -13,54 +13,53 @@ local wibox = require("wibox")
 local os = { getenv = os.getenv }
 local my_table = awful.util.table or gears.table -- 4.{0,1} compatibility
 
-local theme                                     = {}
+local theme = {}
 
-theme.dir                                       = os.getenv("HOME") .. "/.config/awesome/themes/leliana"
-theme.wallpaper                                 = theme.dir .. "/wall.png"
-theme.font                                      = "lucy tewi"
+theme.dir = os.getenv("HOME") .. "/.config/awesome/themes/leliana"
+theme.wallpaper = theme.dir .. "/wall.png"
+theme.font = "lucy tewi"
 
-theme.fg_normal                                 = "#BBBBBB"
-theme.fg_focus                                  = "#E85B92"
-theme.fg_urgent                                 = "#f22c40"
-theme.bg_normal                                 = "#0B0B0B"
-theme.bg_focus                                  = "#0B0B0B"
-theme.bg_urgent                                 = "#4F4F4F"
+theme.fg_normal = "#BBBBBB"
+theme.fg_focus = "#E85B92"
+theme.fg_urgent = "#f22c40"
+theme.bg_normal = "#0B0B0B"
+theme.bg_focus = "#0B0B0B"
+theme.bg_urgent = "#4F4F4F"
 
-theme.border_width                              = 1
-theme.border_normal                             = "#4F4F4F"
-theme.border_focus                              = "#E85B92"
-theme.border_marked                             = "#f22c40"
+theme.border_width = 1
+theme.border_normal = "#4F4F4F"
+theme.border_focus = "#E85B92"
+theme.border_marked = "#f22c40"
 
-theme.menu_height                               = 16
-theme.menu_width                                = 140
-theme.menu_submenu_icon                         = theme.dir .. "/icons/submenu.png"
+theme.menu_height = 16
+theme.menu_width = 140
+theme.menu_submenu_icon = theme.dir .. "/icons/submenu.png"
 
-theme.taglist_squares_sel                       = theme.dir .. "/icons/square_sel.png"
-theme.taglist_squares_unsel                     = theme.dir .. "/icons/square_unsel.png"
+theme.taglist_squares_sel = theme.dir .. "/icons/square_sel.png"
+theme.taglist_squares_unsel = theme.dir .. "/icons/square_unsel.png"
 
-theme.layout_tile                               = theme.dir .. "/icons/tile.png"
-theme.layout_tileleft                           = theme.dir .. "/icons/tileleft.png"
-theme.layout_tilebottom                         = theme.dir .. "/icons/tilebottom.png"
-theme.layout_tiletop                            = theme.dir .. "/icons/tiletop.png"
-theme.layout_fairv                              = theme.dir .. "/icons/fairv.png"
-theme.layout_fairh                              = theme.dir .. "/icons/fairh.png"
-theme.layout_spiral                             = theme.dir .. "/icons/spiral.png"
-theme.layout_dwindle                            = theme.dir .. "/icons/dwindle.png"
-theme.layout_max                                = theme.dir .. "/icons/max.png"
-theme.layout_fullscreen                         = theme.dir .. "/icons/fullscreen.png"
-theme.layout_magnifier                          = theme.dir .. "/icons/magnifier.png"
-theme.layout_floating                           = theme.dir .. "/icons/floating.png"
-theme.useless_gap                               = 0
+theme.layout_tile = theme.dir .. "/icons/tile.png"
+theme.layout_tileleft = theme.dir .. "/icons/tileleft.png"
+theme.layout_tilebottom = theme.dir .. "/icons/tilebottom.png"
+theme.layout_tiletop = theme.dir .. "/icons/tiletop.png"
+theme.layout_fairv = theme.dir .. "/icons/fairv.png"
+theme.layout_fairh = theme.dir .. "/icons/fairh.png"
+theme.layout_spiral = theme.dir .. "/icons/spiral.png"
+theme.layout_dwindle = theme.dir .. "/icons/dwindle.png"
+theme.layout_max = theme.dir .. "/icons/max.png"
+theme.layout_fullscreen = theme.dir .. "/icons/fullscreen.png"
+theme.layout_magnifier = theme.dir .. "/icons/magnifier.png"
+theme.layout_floating = theme.dir .. "/icons/floating.png"
+theme.useless_gap = 0
 
-theme.widget_music_icon                              = ""
-theme.widget_music_icon_on                           = "#E85B92"
+theme.widget_music_icon = ""
+theme.widget_music_icon_on = "#E85B92"
 
-
-theme.notification_font                   = "xos4 Terminus 9"
-theme.notification_fg                     = theme.fg_normal
-theme.notification_bg                     = theme.bg_normal
-theme.notification_border_color           = theme.border_focus
-theme.notification_border_width           = 5
+theme.notification_font = "xos4 Terminus 9"
+theme.notification_fg = theme.fg_normal
+theme.notification_bg = theme.bg_normal
+theme.notification_border_color = theme.border_focus
+theme.notification_border_width = 5
 
 theme.hotkeys_bg = theme.bg_normal
 theme.hotkeys_fg = theme.fg_normal
@@ -134,7 +133,7 @@ theme.mpd = lain.widget.mpd({
             title  = mpd_now.title
             if mpd_now.time ~= "N/A" and mpd_now.elapsed ~= "N/A" then
                 time = string.format(" (%s/%s)", format_time(mpd_now.elapsed), format_time(mpd_now.time))
-		time = markup("#848282", time)
+		        time = markup("#848282", time)
             end
             mpdicon:set_markup(markup(theme.widget_music_icon_on, theme.widget_music_icon))
         elseif mpd_now.state == "pause" then
@@ -162,7 +161,7 @@ function theme.at_screen_connect(s)
     gears.wallpaper.maximized(wallpaper, s, true)
 
     -- Tags
-    awful.tag(awful.util.tagnames, s, awful.layout.layouts)
+    awful.tag(awful.util.tagnames, s, awful.layout.layouts[1])
 
     -- Create a promptbox for each screen
     s.mypromptbox = awful.widget.prompt()
