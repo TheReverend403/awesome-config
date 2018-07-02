@@ -56,31 +56,23 @@ local modkey = "Mod4"
 local altkey = "Mod1"
 local terminal = "urxvt"
 local editor = os.getenv("EDITOR") or "nano"
-local gui_editor = "code"
 local browser = "firefox"
 local guieditor = "code"
-local scrlocker = "awesomeexit lock"
+local irc = terminal .. " -name weechat +sb -e weechat"
 
 awful.util.terminal = terminal
 awful.util.tagnames = { "1", "2", "3", "4", "5", "6"}
 awful.layout.layouts = {
     awful.layout.suit.fair,
-    --awful.layout.suit.fair.horizontal,
-    --awful.layout.suit.spiral,
+    awful.layout.suit.fair.horizontal,
+    awful.layout.suit.spiral,
     --awful.layout.suit.spiral.dwindle,
-    --awful.layout.suit.max,
-    --awful.layout.suit.max.fullscreen,
     --awful.layout.suit.magnifier,
+    --awful.layout.suit.max.fullscreen,
     --awful.layout.suit.corner.nw,
     --awful.layout.suit.corner.ne,
     --awful.layout.suit.corner.sw,
     --awful.layout.suit.corner.se,
-    --lain.layout.cascade,
-    --lain.layout.cascade.tile,
-    --lain.layout.centerwork,
-    --lain.layout.centerwork.horizontal,
-    --lain.layout.termfair,
-    --lain.layout.termfair.center,
 }
 awful.util.taglist_buttons = my_table.join(
                     awful.button({ }, 1, function(t) t:view_only() end),
@@ -115,6 +107,14 @@ beautiful.init(theme_path)
 -- }}}
 
 -- {{{ Menu
+generalmenu = {
+    { "browser", browser },
+    { "telegram", "telegram-desktop" },
+    { "irc", irc },
+    { "email", "thunderbird" },
+    { "gimp", "gimp"},
+}
+
 devmenu = {
     { "idea", "idea" },
     { "pycharm", "pycharm-community" },
@@ -128,7 +128,7 @@ gamesmenu = {
 
 awesomemenu = {
     { "restart", awesome.restart },
-    { "quit", function() awesome.quit() end },
+    { "quit", awesome.quit },
 }
 
 systemmenu = {
@@ -140,8 +140,8 @@ systemmenu = {
 
 awful.util.mymainmenu = awful.menu({
     items = {
-        { "browser", browser },
         { "terminal", terminal },
+        { "general", generalmenu },
         { "dev", devmenu },
         { "games", gamesmenu },
         { "system", systemmenu },
@@ -180,7 +180,7 @@ globalkeys = my_table.join(
               {description = "take a screenshot", group = "hotkeys"}),
 
     -- X screen locker
-    awful.key({ modkey }, "l", function () awful.spawn(scrlocker) end,
+    awful.key({ modkey }, "l", function () awful.spawn("awesomeexit lock") end,
               {description = "lock screen", group = "hotkeys"}),
 
     -- Hotkeys
@@ -233,13 +233,12 @@ globalkeys = my_table.join(
 
     awful.key({ modkey }, "Tab",
         function ()
-            awful.client.focus.history.previous()
+            awful.client.focus.byidx(-1)
             if client.focus then
                 client.focus:raise()
             end
         end,
-        {description = "focus previous client", group = "client"}),
-
+        {description = "cycle open clients", group = "client"}),
 
     -- Standard program
     awful.key({ modkey, "Shift" }, "r", awesome.restart,
@@ -310,7 +309,7 @@ globalkeys = my_table.join(
     awful.key({ modkey }, "c", function () awful.spawn("code") end,
               {description = "editor", group = "launcher"}),
 
-    awful.key({ modkey }, "i", function() awful.spawn(terminal .. " -name weechat +sb -e weechat") end,
+    awful.key({ modkey }, "i", function() awful.spawn(irc) end,
               {description = "irc", group = "launcher"}),
 
     awful.key({ modkey }, "p", function() awful.spawn("passmenu -i -p 'passmenu:' ", false) end,
@@ -364,7 +363,7 @@ clientkeys = my_table.join(
         function (c)
             c.maximized = not c.maximized
             c:raise()
-        end ,
+        end,
         {description = "maximize", group = "client"})
 )
 
