@@ -150,7 +150,7 @@ theme.mpd = lain.widget.mpd({
 
 -- Separators
 local spr = wibox.widget.textbox("   ∕   ")
-local space = wibox.widget.textbox(' ')
+local space = wibox.widget.textbox(" ")
 
 function theme.at_screen_connect(s)
     -- If wallpaper is a function, call it with the screen
@@ -166,8 +166,6 @@ function theme.at_screen_connect(s)
     -- Create a promptbox for each screen
     s.mypromptbox = awful.widget.prompt()
     -- Create an imagebox widget which will contains an icon indicating which layout we're using.
-    -- We need one layoutbox per screen.
-    -- s.mylayoutbox = awful.widget.layoutbox(s)
     s.mylayoutbox = awful.widget.layoutbox(s)
     s.mylayoutbox:buttons(my_table.join(
                            awful.button({ }, 1, function () awful.layout.inc( 1) end),

@@ -61,7 +61,7 @@ local guieditor = "code"
 local irc = terminal .. " -name weechat +sb -e weechat"
 
 awful.util.terminal = terminal
-awful.util.tagnames = { "1", "2", "3", "4", "5", "6"}
+awful.util.tagnames = { "1", "2", "3", "4", "5", "6", "7", "8", "9" }
 awful.layout.layouts = {
     awful.layout.suit.fair,
     awful.layout.suit.fair.horizontal,
@@ -113,22 +113,27 @@ generalmenu = {
     { "irc", irc },
     { "email", "thunderbird" },
     { "gimp", "gimp"},
+    { "files", "thunar" },
+    { "editor", guieditor },
 }
 
 devmenu = {
     { "idea", "idea" },
     { "pycharm", "pycharm-community" },
-    { "vscode", "code" },
+    { "android studio", "android-studio" },
 }
 
 gamesmenu = {
+    { "steam", "steam" },
+    { "kotor 2", "lutris lutris:rungame/star-wars-knights-of-the-old-republic-ii" },
     { "minecraft", string.format("java -jar %s/.minecraft/Minecraft.jar", home) },
     { "mgba", "mgba-qt" },
 }
 
 awesomemenu = {
+    { "config", guieditor .. " " .. gears.filesystem.get_configuration_dir() .. "/" },
     { "restart", awesome.restart },
-    { "quit", awesome.quit },
+    { "quit", function () awesome.quit() end },
 }
 
 systemmenu = {
@@ -330,8 +335,8 @@ globalkeys = my_table.join(
     awful.key({ modkey }, "x",
               function ()
                   awful.prompt.run {
-                    prompt       = "Run Lua code: ",
-                    textbox      = awful.screen.focused().mypromptbox.widget,
+                    prompt = "Run Lua code: ",
+                    textbox = awful.screen.focused().mypromptbox.widget,
                     exe_callback = awful.util.eval,
                     history_path = awful.util.get_cache_dir() .. "/history_eval"
                   }
@@ -347,16 +352,16 @@ clientkeys = my_table.join(
         end,
         {description = "toggle fullscreen", group = "client"}),
 
-    awful.key({ modkey, "Shift"   }, "q",      function (c) c:kill() end,
+    awful.key({ modkey, "Shift"  }, "q", function (c) c:kill() end,
               {description = "close", group = "client"}),
 
     awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle,
               {description = "toggle floating", group = "client"}),
 
-    awful.key({ modkey, "Shift" }, "o",      function (c) c:move_to_screen() end,
+    awful.key({ modkey, "Shift" }, "o", function (c) c:move_to_screen() end,
               {description = "move to screen", group = "client"}),
 
-    awful.key({ modkey, "Shift" }, "t",      function (c) c.ontop = not c.ontop end,
+    awful.key({ modkey, "Shift" }, "t", function (c) c.ontop = not c.ontop end,
               {description = "toggle keep on top", group = "client"}),
 
     awful.key({ modkey, "Shift" }, "m",
@@ -423,7 +428,7 @@ awful.rules.rules = {
             border_width = beautiful.border_width,
             border_color = beautiful.border_normal,
             focus = awful.client.focus.filter,
-            raise = true,
+            raise = false,
             keys = clientkeys,
             buttons = clientbuttons,
             screen = awful.screen.preferred,
@@ -470,7 +475,7 @@ awful.rules.rules = {
                 "Transmission", "vim", "Pcmanfm", "vimpc",
                 "ranger", "feh", "Xarchiver", "Pinentry-gtk-2",
                 "Sxiv", "Pavucontrol", "mgba-sdl", "mgba-qt", "mGBA",
-                "Thunar", "float-term"
+                "Thunar", "float-term", "Lutris"
                 },
             name = { "float-term", "mutt", "vimpc", "ranger" },
             role = { "task_dialog", "pop-up" },
