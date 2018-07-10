@@ -125,8 +125,7 @@ devmenu = {
 
 gamesmenu = {
     { "steam", "steam" },
-    { "kotor 2", "lutris lutris:rungame/star-wars-knights-of-the-old-republic-ii" },
-    { "minecraft", string.format("java -jar %s/.minecraft/Minecraft.jar", home) },
+    { "minecraft", "minecraft" },
     { "mgba", "mgba-qt" },
 }
 
@@ -451,11 +450,6 @@ awful.rules.rules = {
         rule = { class = "Gimp", role = "gimp-image-window" },
         properties = { maximized = true }
     },
-    
-    {
-        rule = { class = "Minecraft*" },
-        properties = { fullscreen = true }
-    },
 
     {
         rule = { name = "weechat" },
@@ -471,13 +465,13 @@ awful.rules.rules = {
     {
         rule_any = {
             class = {
-                "Gucharmap", "Galculator", "mpv", "Qbittorrent",
-                "Transmission", "vim", "Pcmanfm", "vimpc",
+                "Gucharmap", "Galculator", "mpv",
+                "Transmission", "vim", "vimpc",
                 "ranger", "feh", "Xarchiver", "Pinentry-gtk-2",
                 "Sxiv", "Pavucontrol", "mgba-sdl", "mgba-qt", "mGBA",
-                "Thunar", "float-term", "Lutris"
+                "Thunar", "float-term"
                 },
-            name = { "float-term", "mutt", "vimpc", "ranger" },
+            name = { "float-term", "mutt", "vimpc", "ranger", "Minecraft*" },
             role = { "task_dialog", "pop-up" },
             type = { "dialog" },
             instance = { "plugin-container" }

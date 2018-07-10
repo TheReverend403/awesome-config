@@ -17,7 +17,7 @@ local theme = {}
 
 theme.dir = os.getenv("HOME") .. "/.config/awesome/themes/leliana"
 theme.wallpaper = theme.dir .. "/wall.png"
-theme.font = "lucy tewi"
+theme.font = "xos4 Terminus 9"
 
 theme.fg_normal = "#BBBBBB"
 theme.fg_focus = "#E85B92"
@@ -55,7 +55,7 @@ theme.useless_gap = 0
 theme.widget_music_icon = ""
 theme.widget_music_icon_on = "#E85B92"
 
-theme.notification_font = "xos4 Terminus 9"
+theme.notification_font = "xos4 Terminus 10"
 theme.notification_fg = theme.fg_normal
 theme.notification_bg = theme.bg_normal
 theme.notification_border_color = theme.border_focus
@@ -148,6 +148,15 @@ theme.mpd = lain.widget.mpd({
     end
 })
 
+-- Net
+local net = lain.widget.net({
+    notify = "off",
+    settings = function()
+        widget:set_markup(markup.font(theme.font,
+            markup("#7AC82E", "▼ " .. net_now.received) .. " " .. markup("#46A8C3", net_now.sent .. " ▲")))
+    end
+})
+
 -- Separators
 local spr = wibox.widget.textbox("   ∕   ")
 local space = wibox.widget.textbox(" ")
@@ -193,6 +202,8 @@ function theme.at_screen_connect(s)
             spr,
             wibox.container.background(mpdicon, theme.bg_focus),
             wibox.container.background(theme.mpd.widget, theme.bg_focus),
+            spr,
+            net,
             spr,
             date,
             spr,
