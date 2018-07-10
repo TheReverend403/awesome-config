@@ -17,7 +17,7 @@ local theme = {}
 
 theme.dir = os.getenv("HOME") .. "/.config/awesome/themes/leliana"
 theme.wallpaper = theme.dir .. "/wall.png"
-theme.font = "xos4 Terminus 9"
+theme.font = "xos4 Terminus 10"
 
 theme.fg_normal = "#BBBBBB"
 theme.fg_focus = "#E85B92"
@@ -31,7 +31,7 @@ theme.border_normal = "#4F4F4F"
 theme.border_focus = "#E85B92"
 theme.border_marked = "#f22c40"
 
-theme.menu_height = 16
+theme.menu_height = 20
 theme.menu_width = 140
 theme.menu_submenu_icon = theme.dir .. "/icons/submenu.png"
 
@@ -55,7 +55,7 @@ theme.useless_gap = 0
 theme.widget_music_icon = ""
 theme.widget_music_icon_on = "#E85B92"
 
-theme.notification_font = "xos4 Terminus 10"
+theme.notification_font = theme.font
 theme.notification_fg = theme.fg_normal
 theme.notification_bg = theme.bg_normal
 theme.notification_border_color = theme.border_focus
@@ -65,8 +65,8 @@ theme.hotkeys_bg = theme.bg_normal
 theme.hotkeys_fg = theme.fg_normal
 theme.hotkeys_border_width = theme.border_width
 theme.hotkeys_border_color = theme.border_focus
-theme.hotkeys_font = "xos4 Terminus 10"
-theme.hotkeys_description_font = "xos4 Terminus 10"
+theme.hotkeys_font = theme.font
+theme.hotkeys_description_font = theme.font
 theme.hotkeys_modifiers_fg = theme.fg_urgent
 theme.hotkeys_group_margin = 15
 
@@ -104,23 +104,7 @@ function format_time(s)
    return string.format("%d:%.2d", math.floor(s/60), s%60)
 end
 
-local musicplr = awful.util.terminal .. " -geometry 130x40 -name vimpc +sb -e vimpc"
 local mpdicon = wibox.widget.textbox(markup(theme.fg_normal, theme.widget_music_icon))
-mpdicon:buttons(my_table.join(
-    awful.button({ modkey }, 1, function () awful.spawn.with_shell(musicplr) end),
-    awful.button({ }, 1, function ()
-        awful.spawn.with_shell("mpc prev")
-        theme.mpd.update()
-    end),
-    awful.button({ }, 2, function ()
-        awful.spawn.with_shell("mpc toggle")
-        theme.mpd.update()
-    end),
-    awful.button({ }, 3, function ()
-        awful.spawn.with_shell("mpc next")
-        theme.mpd.update()
-    end)))
-
 theme.mpd = lain.widget.mpd({
     timeout = 1,
     notify = "off",
@@ -185,7 +169,7 @@ function theme.at_screen_connect(s)
     s.mytaglist = awful.widget.taglist(s, awful.widget.taglist.filter.all, awful.util.taglist_buttons)
 
     -- Create the wibox
-    s.mywibox = awful.wibar({ position = "top", screen = s, height = 20, bg = theme.bg_normal, fg = theme.fg_normal })
+    s.mywibox = awful.wibar({ position = "top", screen = s, height = 25, bg = theme.bg_normal, fg = theme.fg_normal })
     -- Add widgets to the wibox
     s.mywibox:setup {
         layout = wibox.layout.align.horizontal,
