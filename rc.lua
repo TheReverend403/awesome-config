@@ -472,7 +472,7 @@ awful.rules.rules = {
                 "Thunar", "float-term"
                 },
             name = { "float-term", "mutt", "vimpc", "ranger", "Minecraft*" },
-            role = { "task_dialog", "pop-up" },
+            role = { "task_dialog", "pop-up", "GtkFileChooserDialog" },
             type = { "dialog" },
             instance = { "plugin-container" }
         },
@@ -551,7 +551,22 @@ function dpms_enable(c)
         remove_client(fullscreened_clients, c)
     end
 end
+-- }}}
 
+-- {{{ Disable notifications when fullscreen
+-- https://github.com/awesomeWM/awesome/issues/2047#issuecomment-333201981
+function naughty.config.notify_callback(args)
+    local c = client.focus
+    if c then
+      if c.fullscreen and args.timeout ~= 0 then
+          naughty.suspend()
+          return
+      else
+          naughty.resume()
+          return args
+      end
+    end
+  end
 -- }}}
 
 client.connect_signal("unmanage", dpms_enable)
