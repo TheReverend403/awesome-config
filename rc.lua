@@ -54,11 +54,11 @@ end
 local chosen_theme = "leliana"
 local modkey = "Mod4"
 local altkey = "Mod1"
-local terminal = "urxvt"
+local terminal = "lxterminal"
 local editor = os.getenv("EDITOR") or "nano"
-local browser = "firefox"
+local browser = os.getenv("BROWSER") or "firefox"
 local guieditor = "code"
-local irc = terminal .. " -name weechat +sb -e weechat"
+local irc = terminal .. " --title=weechat -e weechat"
 
 awful.util.terminal = terminal
 awful.util.tagnames = { "1", "2", "3", "4", "5", "6", "7", "8", "9" }
@@ -322,7 +322,7 @@ globalkeys = my_table.join(
     awful.key({ modkey }, "t", function() awful.spawn("telegram-desktop", false) end,
               {description = "telegram", group = "launcher"}),
 
-    awful.key({ modkey }, "m", function() awful.spawn(terminal .. " -geometry 130x40 -name vimpc +sb -e vimpc", false) end,
+    awful.key({ modkey }, "m", function() awful.spawn(terminal .. " --geometry=130x40 --title=vimpc -e vimpc", false) end,
               {description = "music", group = "launcher"}),
 
     awful.key({ modkey }, "d", function () awful.spawn("rofi -show run") end,
