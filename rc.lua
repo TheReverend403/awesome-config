@@ -109,7 +109,7 @@ beautiful.init(theme_path)
 -- {{{ Menu
 generalmenu = {
     { "browser", browser },
-    { "telegram", "telegram-desktop" },
+    { "telegram", "telegram" },
     { "irc", irc },
     { "email", "thunderbird" },
     { "gimp", "gimp"},
@@ -120,13 +120,12 @@ generalmenu = {
 devmenu = {
     { "idea", "idea" },
     { "pycharm", "pycharm-community" },
-    { "android studio", "android-studio" },
+    { "phpstorm", "phpstorm" },
 }
 
 gamesmenu = {
     { "steam", "steam" },
     { "minecraft", "minecraft" },
-    { "mgba", "mgba-qt" },
 }
 
 awesomemenu = {
@@ -316,10 +315,10 @@ globalkeys = my_table.join(
     awful.key({ modkey }, "i", function() awful.spawn(irc) end,
               {description = "irc", group = "launcher"}),
 
-    awful.key({ modkey }, "p", function() awful.spawn("passmenu -i -p 'passmenu:' ", false) end,
-              {description = "passmenu", group = "launcher"}),
+    awful.key({ modkey }, "p", function() awful.spawn("bitwarden-dmenu --clear-clipboard 10 --session-timeout 300 --sync-vault-after 300 --on-error 'xargs notify-send --urgency=low'") end,
+              {description = "bitwarden", group = "launcher"}),
 
-    awful.key({ modkey }, "t", function() awful.spawn("telegram-desktop", false) end,
+    awful.key({ modkey }, "t", function() awful.spawn("telegram", false) end,
               {description = "telegram", group = "launcher"}),
 
     awful.key({ modkey }, "m", function() awful.spawn(terminal .. " --geometry=130x40 --title=vimpc -e vimpc", false) end,
@@ -456,17 +455,12 @@ awful.rules.rules = {
         properties = { maximised = true, screen = 2, tag = awful.util.tagnames[1] }
     },
 
-    {
-        rule = { class = "Thunderbird" },
-        properties = { screen = 1, tag = awful.util.tagnames[3] }
-    },
-
     -- Floating clients
     {
         rule_any = {
             class = {
-                "Gucharmap", "Galculator", "mpv",
-                "Transmission", "vim", "vimpc",
+                "Gucharmap", "Galculator", "mpv", "Thunderbird",
+                "Transmission", "vim", "vimpc", "Deluge",
                 "ranger", "feh", "Xarchiver", "Pinentry-gtk-2",
                 "Sxiv", "Pavucontrol", "mgba-sdl", "mgba-qt", "mGBA",
                 "Thunar", "float-term"
