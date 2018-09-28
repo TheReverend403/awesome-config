@@ -90,7 +90,7 @@ local clock = awful.widget.watch(
 )
 
 -- Calendar
-theme.cal = lain.widget.calendar({
+theme.cal = lain.widget.cal({
     attach_to = { clock },
     notification_preset = {
         font = theme.font,
