@@ -182,6 +182,10 @@ globalkeys = my_table.join(
     awful.key({ modkey }, "s", function() awful.spawn("pstepw -s") end,
               {description = "take a screenshot", group = "hotkeys"}),
 
+    -- Upload contents of clipboard
+    awful.key({ modkey, "Shift" }, "s", function() awful.spawn("pstepw -p") end,
+              {description = "upload text from clipboard", group = "hotkeys"}),
+
     -- X screen locker
     awful.key({ modkey }, "l", function () awful.spawn("awesomeexit lock") end,
               {description = "lock screen", group = "hotkeys"}),
@@ -321,7 +325,7 @@ globalkeys = my_table.join(
     awful.key({ modkey }, "t", function() awful.spawn("telegram", false) end,
               {description = "telegram", group = "launcher"}),
 
-    awful.key({ modkey }, "m", function() awful.spawn(terminal .. " --geometry=130x40 --title=vimpc -e vimpc", false) end,
+    awful.key({ modkey }, "m", function() awful.spawn(terminal .. " --geometry=130x40 --title=ncmpcpp -e ncmpcpp", false) end,
               {description = "music", group = "launcher"}),
 
     awful.key({ modkey }, "d", function () awful.spawn("rofi -show run") end,
@@ -367,7 +371,9 @@ clientkeys = my_table.join(
             c.maximized = not c.maximized
             c:raise()
         end,
-        {description = "maximize", group = "client"})
+        {description = "maximize", group = "client"}),
+    awful.key({ modkey, "Shift" }, "s", function (c) c.sticky = not c.sticky end,
+              {description = "toggle sticky client", group = "client"})
 )
 
 -- Bind all key numbers to tags.
@@ -460,12 +466,12 @@ awful.rules.rules = {
         rule_any = {
             class = {
                 "Gucharmap", "Galculator", "mpv", "Thunderbird",
-                "Transmission", "vim", "vimpc", "Deluge",
+                "Transmission", "vim", "ncmpcpp", "Deluge",
                 "ranger", "feh", "Xarchiver", "Pinentry-gtk-2",
                 "Sxiv", "Pavucontrol", "mgba-sdl", "mgba-qt", "mGBA",
                 "Thunar", "float-term"
                 },
-            name = { "float-term", "mutt", "vimpc", "ranger", "Minecraft*" },
+            name = { "Friends List", "float-term", "mutt", "ncmpcpp", "ranger", "Minecraft*" },
             role = { "task_dialog", "pop-up", "GtkFileChooserDialog" },
             type = { "dialog" },
             instance = { "plugin-container" }

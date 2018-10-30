@@ -26,6 +26,10 @@ theme.bg_normal = "#0B0B0B"
 theme.bg_focus = "#0B0B0B"
 theme.bg_urgent = "#4F4F4F"
 
+theme.wibar_margin = 1
+theme.wibar_height = 20 + theme.wibar_margin
+theme.wibar_margin_color = "#E85B92"
+
 theme.border_width = 1
 theme.border_normal = "#4F4F4F"
 theme.border_focus = "#E85B92"
@@ -169,32 +173,38 @@ function theme.at_screen_connect(s)
     s.mytaglist = awful.widget.taglist(s, awful.widget.taglist.filter.all, awful.util.taglist_buttons)
 
     -- Create the wibox
-    s.mywibox = awful.wibar({ position = "top", screen = s, height = 20, bg = theme.bg_normal, fg = theme.fg_normal })
+    s.mywibox = awful.wibar({ position = "top", screen = s, height = theme.wibar_height, bg = theme.bg_normal, fg = theme.fg_normal })
     -- Add widgets to the wibox
     s.mywibox:setup {
-        layout = wibox.layout.align.horizontal,
-        { -- Left widgets
-            layout = wibox.layout.fixed.horizontal,
-            --spr,
-            s.mytaglist,
-            s.mypromptbox,
+        {
+            layout = wibox.layout.align.horizontal,
+            { -- Left widgets
+                layout = wibox.layout.fixed.horizontal,
+                --spr,
+                s.mytaglist,
+                s.mypromptbox,
+            },
+            space,
+            { -- Right widgets
+                layout = wibox.layout.fixed.horizontal,
+                wibox.widget.systray(),
+                spr,
+                wibox.container.background(mpdicon, theme.bg_focus),
+                wibox.container.background(theme.mpd.widget, theme.bg_focus),
+                spr,
+                net,
+                spr,
+                date,
+                spr,
+                clock,
+                spr,
+                wibox.container.background(s.mylayoutbox, theme.bg_focus),
+            },
         },
-        space,
-        { -- Right widgets
-            layout = wibox.layout.fixed.horizontal,
-            wibox.widget.systray(),
-            spr,
-            wibox.container.background(mpdicon, theme.bg_focus),
-            wibox.container.background(theme.mpd.widget, theme.bg_focus),
-            spr,
-            net,
-            spr,
-            date,
-            spr,
-            clock,
-            spr,
-            wibox.container.background(s.mylayoutbox, theme.bg_focus),
-        },
+        -- Top/bottom border only.
+        bottom = theme.wibar_margin,
+        color = theme.wibar_margin_color,
+        widget = wibox.container.margin,
     }
 end
 
