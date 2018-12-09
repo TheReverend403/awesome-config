@@ -26,9 +26,7 @@ theme.bg_normal = "#0B0B0B"
 theme.bg_focus = "#0B0B0B"
 theme.bg_urgent = "#4F4F4F"
 
-theme.wibar_margin = 1
-theme.wibar_height = 20 + theme.wibar_margin
-theme.wibar_margin_color = "#E85B92"
+theme.wibar_height = 20
 
 theme.border_width = 1
 theme.border_normal = "#4F4F4F"

@@ -57,7 +57,6 @@ local altkey = "Mod1"
 local terminal = "lxterminal"
 local editor = os.getenv("EDITOR") or "nano"
 local browser = os.getenv("BROWSER") or "firefox"
-local guieditor = "code"
 local irc = terminal .. " --title=weechat -e weechat"
 
 awful.util.terminal = terminal
@@ -114,7 +113,6 @@ generalmenu = {
     { "email", "thunderbird" },
     { "gimp", "gimp"},
     { "files", "thunar" },
-    { "editor", guieditor },
 }
 
 devmenu = {
@@ -129,7 +127,6 @@ gamesmenu = {
 }
 
 awesomemenu = {
-    { "config", guieditor .. " " .. gears.filesystem.get_configuration_dir() .. "/" },
     { "restart", awesome.restart },
     { "quit", function () awesome.quit() end },
 }
@@ -319,9 +316,6 @@ globalkeys = my_table.join(
     awful.key({ modkey }, "i", function() awful.spawn(irc) end,
               {description = "irc", group = "launcher"}),
 
-    awful.key({ modkey }, "p", function() awful.spawn("bitwarden-dmenu --clear-clipboard 10 --session-timeout 300 --sync-vault-after 300 --on-error 'xargs notify-send --urgency=low'") end,
-              {description = "bitwarden", group = "launcher"}),
-
     awful.key({ modkey }, "t", function() awful.spawn("telegram", false) end,
               {description = "telegram", group = "launcher"}),
 
@@ -442,8 +436,8 @@ awful.rules.rules = {
     },
 
     { 
-        rule = { class = "Firefox" },
-        properties = { screen = 1, tag = awful.util.tagnames[1] } 
+        rule_any = { class = { "Firefox", "Chromium-browser-chromium" }, },
+            properties = { screen = 1, tag = awful.util.tagnames[1] } 
     },
 
     {
@@ -469,7 +463,7 @@ awful.rules.rules = {
                 "Transmission", "vim", "ncmpcpp", "Deluge",
                 "ranger", "feh", "Xarchiver", "Pinentry-gtk-2",
                 "Sxiv", "Pavucontrol", "mgba-sdl", "mgba-qt", "mGBA",
-                "Thunar", "float-term"
+                "Thunar", "float-term", "Lxappearance", "Pavucontrol"
                 },
             name = { "Friends List", "float-term", "mutt", "ncmpcpp", "ranger", "Minecraft*" },
             role = { "task_dialog", "pop-up", "GtkFileChooserDialog" },
