@@ -9,6 +9,7 @@ local gears = require("gears")
 local lain  = require("lain")
 local awful = require("awful")
 local wibox = require("wibox")
+local markup = require("lain.util.markup")
 
 local os = { getenv = os.getenv }
 local my_table = awful.util.table or gears.table -- 4.{0,1} compatibility
@@ -72,28 +73,13 @@ theme.hotkeys_description_font = theme.font
 theme.hotkeys_modifiers_fg = theme.fg_urgent
 theme.hotkeys_group_margin = 15
 
-local markup = lain.util.markup
-local separators = lain.util.separators
-
--- Date
-local date = awful.widget.watch(
-    "date +'%a %d %b'", 1,
-    function(widget, stdout)
-        widget:set_markup(markup.font(theme.font, stdout))
-    end
-)
-
--- Textclock
-local clock = awful.widget.watch(
-    "date +'%R'", 1,
-    function(widget, stdout)
-        widget:set_markup(markup.font(theme.font, stdout))
-    end
-)
+-- Clock
+local date = wibox.widget.textclock("%a %d %b - %R")
+date.font = theme.font
 
 -- Calendar
 theme.cal = lain.widget.cal({
-    attach_to = { clock },
+    attach_to = { date },
     notification_preset = {
         font = theme.font,
         fg   = theme.fg_normal,
@@ -134,17 +120,8 @@ theme.mpd = lain.widget.mpd({
     end
 })
 
--- Net
-local net = lain.widget.net({
-    notify = "off",
-    settings = function()
-        widget:set_markup(markup.font(theme.font,
-            markup("#7AC82E", "▼ " .. net_now.received) .. " " .. markup("#46A8C3", net_now.sent .. " ▲")))
-    end
-})
-
 -- Separators
-local spr = wibox.widget.textbox("   /   ")
+local spr = wibox.widget.textbox("  /  ")
 local space = wibox.widget.textbox(" ")
 
 function theme.at_screen_connect(s)
@@ -174,35 +151,25 @@ function theme.at_screen_connect(s)
     s.mywibox = awful.wibar({ position = "top", screen = s, height = theme.wibar_height, bg = theme.bg_normal, fg = theme.fg_normal })
     -- Add widgets to the wibox
     s.mywibox:setup {
-        {
-            layout = wibox.layout.align.horizontal,
-            { -- Left widgets
-                layout = wibox.layout.fixed.horizontal,
-                --spr,
-                s.mytaglist,
-                s.mypromptbox,
-            },
-            space,
-            { -- Right widgets
-                layout = wibox.layout.fixed.horizontal,
-                wibox.widget.systray(),
-                spr,
-                wibox.container.background(mpdicon, theme.bg_focus),
-                wibox.container.background(theme.mpd.widget, theme.bg_focus),
-                spr,
-                net,
-                spr,
-                date,
-                spr,
-                clock,
-                spr,
-                wibox.container.background(s.mylayoutbox, theme.bg_focus),
-            },
+        layout = wibox.layout.align.horizontal,
+        { -- Left widgets
+            layout = wibox.layout.fixed.horizontal,
+            --spr,
+            s.mytaglist,
+            s.mypromptbox,
         },
-        -- Top/bottom border only.
-        bottom = theme.wibar_margin,
-        color = theme.wibar_margin_color,
-        widget = wibox.container.margin,
+        space,
+        { -- Right widgets
+            layout = wibox.layout.fixed.horizontal,
+            wibox.widget.systray(),
+            spr,
+            wibox.container.background(mpdicon, theme.bg_focus),
+            wibox.container.background(theme.mpd.widget, theme.bg_focus),
+            spr,
+            date,
+            spr,
+            wibox.container.background(s.mylayoutbox, theme.bg_focus),
+        },
     }
 end
 

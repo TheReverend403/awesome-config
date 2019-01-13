@@ -43,7 +43,7 @@ do
 end
 -- }}}
 
- -- disable startup-notification globally
+-- disable startup-notification globally
 local oldspawn = awful.spawn
 awful.spawn = function (s)
     oldspawn(s, false)
