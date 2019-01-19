@@ -74,7 +74,7 @@ theme.hotkeys_modifiers_fg = theme.fg_urgent
 theme.hotkeys_group_margin = 15
 
 -- Clock
-local date = wibox.widget.textclock("%a %d %b - %R")
+local date = wibox.widget.textclock("%a %d %b - %R ")
 date.font = theme.font
 
 -- Calendar
@@ -167,8 +167,6 @@ function theme.at_screen_connect(s)
             wibox.container.background(theme.mpd.widget, theme.bg_focus),
             spr,
             date,
-            spr,
-            wibox.container.background(s.mylayoutbox, theme.bg_focus),
         },
     }
 end
