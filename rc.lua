@@ -63,8 +63,8 @@ awful.util.terminal = terminal
 awful.util.tagnames = { "1", "2", "3", "4", "5", "6", "7", "8", "9" }
 awful.layout.layouts = {
     awful.layout.suit.fair,
-    awful.layout.suit.fair.horizontal,
-    awful.layout.suit.spiral,
+    --awful.layout.suit.fair.horizontal,
+    --awful.layout.suit.spiral,
     --awful.layout.suit.spiral.dwindle,
     --awful.layout.suit.magnifier,
     --awful.layout.suit.max.fullscreen,
@@ -89,17 +89,6 @@ awful.util.taglist_buttons = my_table.join(
                     awful.button({ }, 4, function(t) awful.tag.viewnext(t.screen) end),
                     awful.button({ }, 5, function(t) awful.tag.viewprev(t.screen) end)
                 )
-
-lain.layout.termfair.nmaster = 3
-lain.layout.termfair.ncol = 1
-lain.layout.termfair.center.nmaster = 3
-lain.layout.termfair.center.ncol = 1
-lain.layout.cascade.tile.offset_x = 2
-lain.layout.cascade.tile.offset_y = 32
-lain.layout.cascade.tile.extra_padding = 5
-lain.layout.cascade.tile.nmaster = 5
-lain.layout.cascade.tile.ncol = 2
-
 
 local theme_path = string.format("%s/.config/awesome/themes/%s/theme.lua", os.getenv("HOME"), chosen_theme)
 beautiful.init(theme_path)
@@ -244,15 +233,8 @@ globalkeys = my_table.join(
         end,
         {description = "cycle open clients", group = "client"}),
 
-    -- Standard program
     awful.key({ modkey, "Shift" }, "r", awesome.restart,
               {description = "reload awesome", group = "awesome"}),
-
-    awful.key({ modkey }, "space", function () awful.layout.inc( 1) end,
-              {description = "select next", group = "layout"}),
-
-    awful.key({ modkey, "Shift" }, "space", function () awful.layout.inc(-1) end,
-              {description = "select previous", group = "layout"}),
 
     -- MPD control
     awful.key({ "Control", altkey }, "Up",

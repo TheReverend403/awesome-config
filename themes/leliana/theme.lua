@@ -41,20 +41,6 @@ theme.menu_submenu_icon = theme.dir .. "/icons/submenu.png"
 theme.taglist_squares_sel = theme.dir .. "/icons/square_sel.png"
 theme.taglist_squares_unsel = theme.dir .. "/icons/square_unsel.png"
 
-theme.layout_tile = theme.dir .. "/icons/tile.png"
-theme.layout_tileleft = theme.dir .. "/icons/tileleft.png"
-theme.layout_tilebottom = theme.dir .. "/icons/tilebottom.png"
-theme.layout_tiletop = theme.dir .. "/icons/tiletop.png"
-theme.layout_fairv = theme.dir .. "/icons/fairv.png"
-theme.layout_fairh = theme.dir .. "/icons/fairh.png"
-theme.layout_spiral = theme.dir .. "/icons/spiral.png"
-theme.layout_dwindle = theme.dir .. "/icons/dwindle.png"
-theme.layout_max = theme.dir .. "/icons/max.png"
-theme.layout_fullscreen = theme.dir .. "/icons/fullscreen.png"
-theme.layout_magnifier = theme.dir .. "/icons/magnifier.png"
-theme.layout_floating = theme.dir .. "/icons/floating.png"
-theme.useless_gap = 0
-
 theme.widget_music_icon = ""
 theme.widget_music_icon_on = "#E85B92"
 
@@ -137,13 +123,6 @@ function theme.at_screen_connect(s)
 
     -- Create a promptbox for each screen
     s.mypromptbox = awful.widget.prompt()
-    -- Create an imagebox widget which will contains an icon indicating which layout we're using.
-    s.mylayoutbox = awful.widget.layoutbox(s)
-    s.mylayoutbox:buttons(my_table.join(
-                           awful.button({ }, 1, function () awful.layout.inc( 1) end),
-                           awful.button({ }, 3, function () awful.layout.inc(-1) end),
-                           awful.button({ }, 4, function () awful.layout.inc( 1) end),
-                           awful.button({ }, 5, function () awful.layout.inc(-1) end)))
     -- Create a taglist widget
     s.mytaglist = awful.widget.taglist(s, awful.widget.taglist.filter.all, awful.util.taglist_buttons)
 
