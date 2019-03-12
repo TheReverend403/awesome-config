@@ -7,6 +7,7 @@ local naughty = require("naughty")
 local os = { getenv = os.getenv }
 local xresources = require("beautiful.xresources")
 local xrdb = xresources.get_current_theme()
+local dpi = xresources.apply_dpi
 
 local theme = {}
 theme.color = {
@@ -41,15 +42,15 @@ theme.bg_normal = theme.color.background
 theme.bg_focus = theme.color.background
 theme.bg_urgent = theme.color.background
 
-theme.wibar_height = 20
+theme.wibar_height = dpi(20)
 
-theme.border_width = 1
+theme.border_width = dpi(1)
 theme.border_normal = theme.color.gray
 theme.border_focus = theme.color.magenta
 theme.border_marked = theme.color.red
 
-theme.menu_height = 20
-theme.menu_width = 140
+theme.menu_height = dpi(20)
+theme.menu_width = dpi(140)
 theme.menu_submenu_icon = theme.dir .. "/icons/submenu.png"
 
 theme.taglist_squares_sel = theme.dir .. "/icons/square_sel.png"
@@ -62,7 +63,7 @@ theme.notification_font = theme.font
 theme.notification_fg = theme.fg_normal
 theme.notification_bg = theme.bg_normal
 theme.notification_border_color = theme.border_focus
-theme.notification_border_width = 5
+theme.notification_border_width = dpi(5)
 
 theme.hotkeys_bg = theme.bg_normal
 theme.hotkeys_fg = theme.fg_normal
@@ -71,7 +72,7 @@ theme.hotkeys_border_color = theme.border_focus
 theme.hotkeys_font = theme.font
 theme.hotkeys_description_font = theme.font
 theme.hotkeys_modifiers_fg = theme.color.magenta
-theme.hotkeys_group_margin = 15
+theme.hotkeys_group_margin = dpi(15)
 
 -- Clock
 local date = wibox.widget.textclock(markup(theme.fg_normal, markup.font(theme.font, "%a %d %b - %R ")))
