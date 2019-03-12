@@ -54,7 +54,7 @@ theme.taglist_squares_sel = theme.dir .. "/icons/square_sel.png"
 theme.taglist_squares_unsel = theme.dir .. "/icons/square_unsel.png"
 
 theme.widget_music_icon = ""
-theme.widget_music_icon_on = theme.magenta
+theme.widget_music_icon_on = theme.color.magenta
 
 theme.notification_font = theme.font
 theme.notification_fg = theme.fg_normal
@@ -72,8 +72,7 @@ theme.hotkeys_modifiers_fg = theme.color.magenta
 theme.hotkeys_group_margin = 15
 
 -- Clock
-local date = wibox.widget.textclock("%a %d %b - %R ")
-date.font = theme.font
+local date = wibox.widget.textclock(markup(theme.fg_normal, markup.font(theme.font, "%a %d %b - %R ")))
 
 -- Calendar
 theme.cal = lain.widget.cal({
@@ -119,9 +118,7 @@ theme.mpd = lain.widget.mpd({
 })
 
 -- VPN status
-theme.vpn = wibox.widget.textbox()
-theme.vpn.font = theme.font
-awful.widget.watch("ip addr show wg0", 1,
+theme.vpn = awful.widget.watch("ip addr show wg0", 5,
     function(widget, stdout, stderr, exitreason, exitcode)
         local status_color = nil
         if(exitcode ~= 0) then
@@ -129,9 +126,8 @@ awful.widget.watch("ip addr show wg0", 1,
         else
             status_color = theme.color.green
         end
-        widget.markup = markup(status_color, "VPN")
-    end,
-    theme.vpn
+        widget:set_markup(markup(status_color, markup.font(theme.font, "VPN")))
+    end
 )
 
 
