@@ -5,27 +5,29 @@ local wibox = require("wibox")
 local markup = require("lain.util.markup")
 local naughty = require("naughty")
 local os = { getenv = os.getenv }
+local xresources = require("beautiful.xresources")
+local xrdb = xresources.get_current_theme()
 
 local theme = {}
 theme.color = {
-    foreground = "#bbbbbb",
-    background = "#0b0b0b",
-    black = "#1b1918",
-    white = "#cccccc",
-    gray = "#4f4f4f",
-    red = "#f22c40",
-    green = "#5ab738",
-    yellow = "#d5911a",
-    blue = "#3971ed",
-    magenta = "#e85b92",
-    cyan = "#00ad9c",
-    light_gray = "#848282",
-    light_red = "#f85262",
-    light_green = "#7bd15b",
-    light_yellow = "#e9ad44",
-    light_blue = "#5e8af1",
-    light_magenta = "#f181ac",
-    light_cyan = "#26b3a4"
+    foreground = xrdb.foreground,
+    background = xrdb.background,
+    black = xrdb.colour0,
+    white = xrdb.color7,
+    gray = xrdb.color8,
+    red = xrdb.color1,
+    green = xrdb.color2,
+    yellow = xrdb.color3,
+    blue = xrdb.color4,
+    magenta = xrdb.color5,
+    cyan = xrdb.color6,
+    light_gray = xrdb.color15,
+    light_red = xrdb.color9,
+    light_green = xrdb.color10,
+    light_yellow = xrdb.color11,
+    light_blue = xrdb.color12,
+    light_magenta = xrdb.color13,
+    light_cyan = xrdb.color14
 }
 
 theme.dir = os.getenv("HOME") .. "/.config/awesome/themes/leliana"
