@@ -52,9 +52,6 @@ theme.menu_height = dpi(20)
 theme.menu_width = dpi(140)
 theme.menu_submenu_icon = theme.dir .. "/icons/submenu.png"
 
-theme.taglist_squares_sel = theme.dir .. "/icons/square_sel.png"
-theme.taglist_squares_unsel = theme.dir .. "/icons/square_unsel.png"
-
 theme.widget_music_icon = ""
 theme.widget_music_icon_on = theme.color.magenta
 
