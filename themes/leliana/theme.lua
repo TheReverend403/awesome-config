@@ -1,9 +1,8 @@
 local gears = require("gears")
-local lain  = require("lain")
+local lain = require("lain")
 local awful = require("awful")
 local wibox = require("wibox")
 local markup = require("lain.util.markup")
-local naughty = require("naughty")
 local os = { getenv = os.getenv }
 local xresources = require("beautiful.xresources")
 local xrdb = xresources.get_current_theme()
@@ -82,14 +81,14 @@ theme.cal = lain.widget.cal({
     attach_to = { date },
     notification_preset = {
         font = theme.font,
-        fg   = theme.fg_normal,
-        bg   = theme.bg_normal
+        fg = theme.fg_normal,
+        bg = theme.bg_normal
     }
 })
 
 -- MPD
 function format_time(s)
-   return string.format("%d:%.2d", math.floor(s/60), s%60)
+    return string.format("%d:%.2d", math.floor(s / 60), s % 60)
 end
 
 local mpdicon = wibox.widget.textbox(markup(theme.fg_normal, theme.widget_music_icon))
@@ -102,15 +101,15 @@ theme.mpd = lain.widget.mpd({
         local time = ""
         if mpd_now.state == "play" then
             artist = " " .. mpd_now.artist .. " "
-            title  = mpd_now.title
+            title = mpd_now.title
             if mpd_now.time ~= "N/A" and mpd_now.elapsed ~= "N/A" then
                 time = string.format(" (%s/%s)", format_time(mpd_now.elapsed), format_time(mpd_now.time))
-		        time = markup(theme.color.light_gray, time)
+                time = markup(theme.color.light_gray, time)
             end
             mpdicon:set_markup(markup(theme.widget_music_icon_on, theme.widget_music_icon))
         elseif mpd_now.state == "pause" then
             artist = " mpd "
-            title  = "paused"
+            title = "paused"
             mpdicon:set_markup(markup(theme.widget_music_icon_on, theme.widget_music_icon))
         else
             mpdicon:set_markup(markup(theme.fg_normal, theme.widget_music_icon))
@@ -123,19 +122,17 @@ theme.mpd = lain.widget.mpd({
 -- VPN status
 theme.vpn = awful.widget.watch("ip addr show wg0", 5,
     function(widget, stdout, stderr, exitreason, exitcode)
-        local status_color = nil
-        if(exitcode ~= 0) then
+        local status_color
+        if exitcode ~= 0 then
             status_color = theme.color.red
         else
             status_color = theme.color.green
         end
         widget:set_markup(markup(status_color, markup.font(theme.font, "VPN")))
-    end
-)
-
+    end)
 
 -- Separators
-local spr = wibox.widget.textbox("   /   ")
+local spr = wibox.widget.textbox("  |  ")
 local space = wibox.widget.textbox(" ")
 
 function theme.at_screen_connect(s)
@@ -159,14 +156,16 @@ function theme.at_screen_connect(s)
     -- Add widgets to the wibox
     s.mywibox:setup {
         layout = wibox.layout.align.horizontal,
-        { -- Left widgets
+        {
+            -- Left widgets
             layout = wibox.layout.fixed.horizontal,
             --spr,
             s.mytaglist,
             s.mypromptbox,
         },
         space,
-        { -- Right widgets
+        {
+            -- Right widgets
             layout = wibox.layout.fixed.horizontal,
             wibox.widget.systray(),
             spr,

@@ -1,1 +1,1 @@
-![screenshot](scrot.png)
+![screenshot](preview.png)

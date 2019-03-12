@@ -3,26 +3,26 @@
 ------------------------------------------
 -- Lucas de Vries <lucas@glacicle.org>
 -- Licensed under the WTFPL version 2
---   * http://sam.zoy.org/wtfpl/COPYING
+-- * http://sam.zoy.org/wtfpl/COPYING
 -----------------------------------------
 -- Cut version
 -----------------------------------------
 
 -- Grab environment
 local ipairs = ipairs
-local awful  = require("awful")
-local table  = table
-local capi   = { screen = screen }
+local awful = require("awful")
+local table = table
+local capi = { screen = screen }
 
 -- Eminent: Effortless wmii-style dynamic tagging
 module("eminent")
 
 -- Grab the original functions we're replacing
-local deflayout = nil
+local deflayout
 local orig = {
-    new     = awful.tag.new,
+    new = awful.tag.new,
     taglist = awful.widget.taglist.new,
-    filter  = awful.widget.taglist.filter.all,
+    filter = awful.widget.taglist.filter.all,
 }
 
 -- Return tags with stuff on them, mark others hidden
@@ -41,13 +41,13 @@ function gettags(screen)
 end
 
 -- Pre-create tags
-awful.tag.new = function (names, screen, layout)
+awful.tag.new = function(names, screen, layout)
     deflayout = layout and layout[1] or layout
     return orig.new(names, screen, layout)
 end
 
 -- Taglist label functions
-awful.widget.taglist.filter.all = function (t, args)
+awful.widget.taglist.filter.all = function(t, args)
     if t.selected or #t:clients() > 0 then
         return orig.filter(t, args)
     end
