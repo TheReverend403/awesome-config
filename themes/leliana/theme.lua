@@ -74,7 +74,7 @@ theme.hotkeys_modifiers_fg = theme.color.magenta
 theme.hotkeys_group_margin = dpi(15)
 
 -- Clock
-local date = wibox.widget.textclock(markup(theme.fg_normal, markup.font(theme.font, "%a %d %b - %R ")))
+local date = wibox.widget.textclock(markup(theme.fg_normal, markup.font(theme.font, "%a %d %b - %R")))
 
 -- Calendar
 theme.cal = lain.widget.cal({
@@ -132,7 +132,7 @@ theme.vpn = awful.widget.watch("ip addr show wg0", 5,
     end)
 
 -- Separators
-local spr = wibox.widget.textbox("  |  ")
+local spr = wibox.widget.textbox(markup(theme.color.gray, "  |  "))
 local space = wibox.widget.textbox(" ")
 
 function theme.at_screen_connect(s)
@@ -175,6 +175,7 @@ function theme.at_screen_connect(s)
             theme.vpn,
             spr,
             date,
+            space,
         },
     }
 end
