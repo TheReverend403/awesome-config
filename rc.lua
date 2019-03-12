@@ -423,8 +423,13 @@ awful.rules.rules = {
     },
 
     {
-        rule = { class = "Telegram*" },
+        rule = { name = "Telegram*" },
         properties = { screen = 1, tag = awful.util.tagnames[2] }
+    },
+
+    {
+        rule = { class = "Thunderbird" },
+        properties = { screen = 1, tag = awful.util.tagnames[3] }
     },
 
     { 
@@ -445,9 +450,10 @@ awful.rules.rules = {
                 "Transmission", "vim", "ncmpcpp", "Deluge",
                 "ranger", "feh", "Xarchiver", "Pinentry-gtk-2",
                 "Sxiv", "Pavucontrol", "mgba-sdl", "mgba-qt", "mGBA",
-                "Thunar", "float-term", "Lxappearance", "Pavucontrol"
+                "Thunar", "File-roller", "float-term", "Lxappearance", "Pavucontrol",
+                "dwarftherapist", "Dwarf_Fortress", "SoundCenSeGTK"
                 },
-            name = { "Friends List", "float-term", "mutt", "ncmpcpp", "ranger", "Minecraft*" },
+            name = { "Friends List", "float-term", "mutt", "ncmpcpp", "ranger", "Minecraft*", "PyLNP" },
             role = { "task_dialog", "pop-up", "GtkFileChooserDialog" },
             type = { "dialog" },
             instance = { "plugin-container" }
@@ -546,6 +552,7 @@ function naughty.config.notify_callback(args)
 -- }}}
 
 client.connect_signal("unmanage", dpms_enable)
+client.connect_signal("unmanage", border_adjust)
 client.connect_signal("property::fullscreen", dpms_disable)
 client.connect_signal("focus", border_adjust)
 client.connect_signal("unfocus", border_adjust)
