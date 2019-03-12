@@ -18,8 +18,6 @@ local naughty = require("naughty")
 local lain = require("lain")
 local hotkeys_popup = require("awful.hotkeys_popup").widget
 require("eminent")
-
-local my_table = awful.util.table or gears.table -- 4.{0,1} compatibility
 -- }}}
 
 -- {{{ Error handling
@@ -73,7 +71,7 @@ awful.layout.layouts = {
     --awful.layout.suit.corner.sw,
     --awful.layout.suit.corner.se,
 }
-awful.util.taglist_buttons = my_table.join(
+awful.util.taglist_buttons = gears.table.join(
                     awful.button({ }, 1, function(t) t:view_only() end),
                     awful.button({ modkey }, 1, function(t)
                                               if client.focus then
@@ -157,13 +155,13 @@ awful.screen.connect_for_each_screen(function(s) beautiful.at_screen_connect(s) 
 -- }}}
 
 -- {{{ Mouse bindings
-root.buttons(my_table.join(
+root.buttons(gears.table.join(
     awful.button({ }, 3, function () awful.util.mymainmenu:toggle() end)
 ))
 -- }}}
 
 -- {{{ Key bindings
-globalkeys = my_table.join(
+globalkeys = gears.table.join(
     -- Take a screenshot
     awful.key({ modkey }, "s", function() awful.spawn("pstepw -s") end,
               {description = "take a screenshot", group = "hotkeys"}),
@@ -322,7 +320,7 @@ globalkeys = my_table.join(
               {description = "lua prompt", group = "awesome"})
 )
 
-clientkeys = my_table.join(
+clientkeys = gears.table.join(
     awful.key({ modkey, "Shift" }, "f",
         function (c)
             c.fullscreen = not c.fullscreen
@@ -364,7 +362,7 @@ for i = 1, 9 do
         descr_move = {description = "move focused client to tag #", group = "tag"}
     end
 
-    globalkeys = my_table.join(globalkeys,
+    globalkeys = gears.table.join(globalkeys,
         -- View tag only.
         awful.key({ modkey }, "#" .. i + 9,
                   function ()
@@ -389,7 +387,7 @@ for i = 1, 9 do
     )
 end
 
-clientbuttons = my_table.join(
+clientbuttons = gears.table.join(
     awful.button({ }, 1, function (c) client.focus = c; c:raise() end),
     awful.button({ modkey }, 1, awful.mouse.client.move),
     awful.button({ modkey }, 3, awful.mouse.client.resize))

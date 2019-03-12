@@ -68,7 +68,7 @@ theme.hotkeys_border_width = theme.border_width
 theme.hotkeys_border_color = theme.border_focus
 theme.hotkeys_font = theme.font
 theme.hotkeys_description_font = theme.font
-theme.hotkeys_modifiers_fg = theme.fg_urgent
+theme.hotkeys_modifiers_fg = theme.color.magenta
 theme.hotkeys_group_margin = 15
 
 -- Clock
