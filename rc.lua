@@ -1,11 +1,3 @@
---[[
-
-     Awesome WM configuration
-     Based on github.com/lcpz/awesome-copycats
-
---]]
-
--- {{{ Required libraries
 local awesome, client, mouse, screen, tag = awesome, client, mouse, screen, tag
 local ipairs, string, os, table, tostring, tonumber, type = ipairs, string, os, table, tostring, tonumber, type
 
@@ -18,7 +10,6 @@ local naughty = require("naughty")
 local lain = require("lain")
 local hotkeys_popup = require("awful.hotkeys_popup").widget
 require("eminent")
--- }}}
 
 -- {{{ Error handling
 if awesome.startup_errors then
@@ -82,6 +73,7 @@ awful.util.taglist_buttons = gears.table.join(awful.button({}, 1, function(t) t:
 
 local theme_path = string.format("%s/.config/awesome/themes/%s/theme.lua", os.getenv("HOME"), chosen_theme)
 beautiful.init(theme_path)
+naughty.config.defaults.border_width = beautiful.notification_border_width
 -- }}}
 
 -- {{{ Menu
@@ -174,26 +166,27 @@ globalkeys = gears.table.join(-- Take a screenshot
             if client.focus then client.focus:raise() end
         end,
         { description = "focus by direction", group = "client" }),
+
     awful.key({ modkey }, "Up",
         function()
             awful.client.focus.global_bydirection("up")
             if client.focus then client.focus:raise() end
         end,
         { description = "focus by direction", group = "client" }),
+
     awful.key({ modkey }, "Left",
         function()
             awful.client.focus.global_bydirection("left")
             if client.focus then client.focus:raise() end
         end,
         { description = "focus by direction", group = "client" }),
+
     awful.key({ modkey }, "Right",
         function()
             awful.client.focus.global_bydirection("right")
             if client.focus then client.focus:raise() end
         end,
         { description = "focus by direction", group = "client" }),
-    awful.key({ modkey }, "w", function() awful.util.mymainmenu:show() end,
-        { description = "show main menu", group = "awesome" }),
 
     -- Layout manipulation
     awful.key({ modkey, "Shift" }, "Right", function() awful.client.swap.global_bydirection("right") end,
@@ -285,10 +278,10 @@ globalkeys = gears.table.join(-- Take a screenshot
     awful.key({ modkey }, "i", function() awful.spawn(irc) end,
         { description = "irc", group = "launcher" }),
 
-    awful.key({ modkey }, "t", function() awful.spawn("telegram", false) end,
+    awful.key({ modkey }, "t", function() awful.spawn("telegram") end,
         { description = "telegram", group = "launcher" }),
 
-    awful.key({ modkey }, "m", function() awful.spawn(terminal .. " --geometry=130x40 --title=ncmpcpp -e ncmpcpp", false) end,
+    awful.key({ modkey }, "m", function() awful.spawn(terminal .. " --geometry=130x40 --title=ncmpcpp -e ncmpcpp") end,
         { description = "music", group = "launcher" }),
 
     awful.key({ modkey }, "d", function() awful.spawn("rofi -show run") end,
@@ -333,6 +326,7 @@ clientkeys = gears.table.join(awful.key({ modkey, "Shift" }, "f",
             c:raise()
         end,
         { description = "maximize", group = "client" }),
+
     awful.key({ modkey, "Shift" }, "s", function(c) c.sticky = not c.sticky end,
         { description = "toggle sticky client", group = "client" }))
 
@@ -359,6 +353,7 @@ for i = 1, 9 do
                 end
             end,
             descr_view),
+
         -- Move client to tag.
         awful.key({ modkey, "Shift" }, "#" .. i + 9,
             function()
@@ -513,6 +508,7 @@ function dpms_enable(c)
         remove_client(fullscreened_clients, c)
     end
 end
+
 -- }}}
 
 -- {{{ Disable notifications when fullscreen
@@ -529,6 +525,7 @@ function naughty.config.notify_callback(args)
         end
     end
 end
+
 -- }}}
 
 client.connect_signal("unmanage", dpms_enable)

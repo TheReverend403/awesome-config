@@ -1,9 +1,9 @@
+local os = { getenv = os.getenv }
 local gears = require("gears")
 local lain = require("lain")
 local awful = require("awful")
 local wibox = require("wibox")
 local markup = require("lain.util.markup")
-local os = { getenv = os.getenv }
 local xresources = require("beautiful.xresources")
 local xrdb = xresources.get_current_theme()
 local dpi = xresources.apply_dpi
@@ -43,7 +43,7 @@ theme.bg_urgent = theme.color.background
 
 theme.wibar_height = dpi(20)
 
-theme.border_width = dpi(1)
+theme.border_width = dpi(2)
 theme.border_normal = theme.color.gray
 theme.border_focus = theme.color.magenta
 theme.border_marked = theme.color.red
@@ -59,7 +59,7 @@ theme.notification_font = theme.font
 theme.notification_fg = theme.fg_normal
 theme.notification_bg = theme.bg_normal
 theme.notification_border_color = theme.border_focus
-theme.notification_border_width = dpi(5)
+theme.notification_border_width = theme.border_width
 
 theme.hotkeys_bg = theme.bg_normal
 theme.hotkeys_fg = theme.fg_normal
@@ -126,7 +126,8 @@ theme.vpn = awful.widget.watch("ip addr show wg0", 5,
             status_color = theme.color.green
         end
         widget:set_markup(markup(status_color, markup.font(theme.font, "VPN")))
-    end)
+    end
+)
 
 -- Separators
 local spr = wibox.widget.textbox(markup(theme.color.gray, "  |  "))
@@ -156,7 +157,6 @@ function theme.at_screen_connect(s)
         {
             -- Left widgets
             layout = wibox.layout.fixed.horizontal,
-            --spr,
             s.mytaglist,
             s.mypromptbox,
         },
