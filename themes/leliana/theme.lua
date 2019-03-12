@@ -1,19 +1,10 @@
---[[
-
-     Powerarrow Dark Awesome WM theme
-     github.com/lcpz
-
---]]
-
 local gears = require("gears")
 local lain  = require("lain")
 local awful = require("awful")
 local wibox = require("wibox")
 local markup = require("lain.util.markup")
 local naughty = require("naughty")
-
 local os = { getenv = os.getenv }
-local my_table = awful.util.table or gears.table -- 4.{0,1} compatibility
 
 local theme = {}
 theme.color = {
@@ -39,7 +30,7 @@ theme.color = {
 
 theme.dir = os.getenv("HOME") .. "/.config/awesome/themes/leliana"
 theme.wallpaper = theme.dir .. "/wall.png"
-theme.font = "Terminus (TTF) 11"
+theme.font = "xos4 Terminus 11"
 
 theme.fg_normal = theme.color.foreground
 theme.fg_focus = theme.color.magenta

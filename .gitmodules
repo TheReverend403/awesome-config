@@ -1,6 +1,3 @@
 [submodule "lain"]
 	path = lain
 	url = https://github.com/lcpz/lain.git
-[submodule "tyrannical"]
-	path = tyrannical
-	url = https://github.com/Elv13/tyrannical
