@@ -88,7 +88,6 @@ function format_time(s)
     return string.format("%d:%.2d", math.floor(s / 60), s % 60)
 end
 
-local mpdicon = wibox.widget.textbox(markup(theme.fg_normal, theme.widget_music_icon))
 theme.mpd = lain.widget.mpd({
     timeout = 1,
     notify = "off",
@@ -96,23 +95,22 @@ theme.mpd = lain.widget.mpd({
         local artist = ""
         local title = ""
         local time = ""
+        artist = " " .. mpd_now.artist .. " "
+        title = mpd_now.title
+        playing_status = ""
         if mpd_now.state == "play" then
-            artist = " " .. mpd_now.artist .. " "
-            title = mpd_now.title
             if mpd_now.time ~= "N/A" and mpd_now.elapsed ~= "N/A" then
-                time = string.format(" (%s/%s)", format_time(mpd_now.elapsed), format_time(mpd_now.time))
-                time = markup(theme.color.light_gray, time)
+                playing_status = string.format(" (%s/%s)", format_time(mpd_now.elapsed), format_time(mpd_now.time))
+                playing_status = markup(theme.color.light_gray, playing_status)
             end
-            mpdicon:set_markup(markup(theme.widget_music_icon_on, theme.widget_music_icon))
         elseif mpd_now.state == "pause" then
-            artist = " mpd "
-            title = "paused"
-            mpdicon:set_markup(markup(theme.widget_music_icon_on, theme.widget_music_icon))
+            playing_status = markup(theme.color.light_gray, " (paused)")
         else
-            mpdicon:set_markup(markup(theme.fg_normal, theme.widget_music_icon))
+            artist = ""
+            title = ""
         end
 
-        widget:set_markup(markup.font(theme.font, markup(theme.widget_music_icon_on, artist) .. title .. time))
+        widget:set_markup(markup.font(theme.font, markup(theme.widget_music_icon_on, artist) .. title .. playing_status))
     end
 })
 
@@ -165,8 +163,6 @@ function theme.at_screen_connect(s)
             -- Right widgets
             layout = wibox.layout.fixed.horizontal,
             wibox.widget.systray(),
-            spr,
-            wibox.container.background(mpdicon, theme.bg_focus),
             wibox.container.background(theme.mpd.widget, theme.bg_focus),
             spr,
             theme.vpn,

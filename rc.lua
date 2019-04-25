@@ -121,6 +121,7 @@ awful.util.mymainmenu = awful.menu({
 -- }}}
 
 -- {{{ Screen
+awful.screen.set_auto_dpi_enabled(true)
 -- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
 screen.connect_signal("property::geometry", function(s)
     -- Wallpaper
@@ -415,6 +416,11 @@ awful.rules.rules = {
     },
 
     {
+        rule = { class = "Dwarf_Fortress" },
+        properties = { fullscreen = true }
+    },
+
+    {
         rule = { name = "weechat" },
         properties = { maximised = true, screen = 2, tag = awful.util.tagnames[1] }
     },
@@ -428,7 +434,7 @@ awful.rules.rules = {
                 "ranger", "feh", "Xarchiver", "Pinentry-gtk-2",
                 "Sxiv", "Pavucontrol", "mgba-sdl", "mgba-qt", "mGBA",
                 "Thunar", "File-roller", "float-term", "Lxappearance", "Pavucontrol",
-                "dwarftherapist", "Dwarf_Fortress", "SoundCenSeGTK"
+                "dwarftherapist", "Dwarf_Fortress", "SoundCenSeGTK", "obs"
             },
             name = { "Friends List", "float-term", "mutt", "ncmpcpp", "ranger", "Minecraft*", "PyLNP" },
             role = { "task_dialog", "pop-up", "GtkFileChooserDialog" },
@@ -528,11 +534,12 @@ end
 
 -- }}}
 
-client.connect_signal("unmanage", dpms_enable)
+client.connect_signal("manage", border_adjust)
 client.connect_signal("unmanage", border_adjust)
-client.connect_signal("property::fullscreen", dpms_disable)
 client.connect_signal("focus", border_adjust)
-client.connect_signal("unfocus", border_adjust)
-client.connect_signal("property::maximized", border_adjust)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
+
+client.connect_signal("unmanage", dpms_enable)
+client.connect_signal("property::fullscreen", dpms_disable)
+
 -- }}}
