@@ -121,7 +121,7 @@ awful.util.mymainmenu = awful.menu({
 -- }}}
 
 -- {{{ Screen
-awful.screen.set_auto_dpi_enabled(true)
+-- awful.screen.set_auto_dpi_enabled(true)
 -- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
 screen.connect_signal("property::geometry", function(s)
     -- Wallpaper
@@ -285,8 +285,8 @@ globalkeys = gears.table.join(-- Take a screenshot
     awful.key({ modkey }, "m", function() awful.spawn(terminal .. " --dimensions 130 40 --title=ncmpcpp -e ncmpcpp") end,
         { description = "music", group = "launcher" }),
 
-    awful.key({ modkey }, "d", function() awful.spawn("rofi -show run") end,
-        { description = "rofi", group = "launcher" }),
+    awful.key({ modkey }, "d", function () awful.screen.focused().mypromptbox:run() end,
+        {description = "run prompt", group = "launcher"}),
 
     awful.key({}, "XF86Calculator", function() awful.spawn("galculator") end,
         { description = "calculator", group = "launcher" }),
