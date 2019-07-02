@@ -47,9 +47,7 @@ local chosen_theme = "leliana"
 local modkey = "Mod4"
 local altkey = "Mod1"
 local terminal = "alacritty"
-local editor = os.getenv("EDITOR") or "nano"
 local browser = os.getenv("BROWSER") or "firefox"
-local irc = terminal .. " --title=weechat -e weechat"
 
 awful.util.terminal = terminal
 awful.util.tagnames = { "1", "2", "3", "4", "5", "6", "7", "8", "9" }
@@ -77,45 +75,13 @@ naughty.config.defaults.border_width = beautiful.notification_border_width
 -- }}}
 
 -- {{{ Menu
-generalmenu = {
-    { "browser", browser },
-    { "telegram", "telegram" },
-    { "irc", irc },
-    { "email", "thunderbird" },
-    { "gimp", "gimp" },
-    { "files", "thunar" },
-}
-
-devmenu = {
-    { "idea", "idea" },
-    { "pycharm", "pycharm-community" },
-    { "phpstorm", "phpstorm" },
-}
-
-gamesmenu = {
-    { "steam", "steam" },
-    { "minecraft", "minecraft" },
-}
-
-awesomemenu = {
-    { "restart", awesome.restart },
-    { "quit", awesome.quit },
-}
-
-systemmenu = {
-    { "awesome", awesomemenu },
-    { "lock", "awesomeexit lock" },
-    { "reboot", "awesomeexit reboot" },
-    { "shutdown", "awesomeexit shutdown" }
-}
-
 awful.util.mymainmenu = awful.menu({
     items = {
-        { "terminal", terminal },
-        { "general", generalmenu },
-        { "dev", devmenu },
-        { "games", gamesmenu },
-        { "system", systemmenu },
+        { "reload", awesome.restart },
+        { "logout", awesome.quit },
+        { "lock", "awesomeexit lock" },
+        { "reboot", "awesomeexit reboot" },
+        { "shutdown", "awesomeexit shutdown" }
     }
 })
 -- }}}
@@ -273,10 +239,7 @@ globalkeys = gears.table.join(-- Take a screenshot
     awful.key({ modkey }, "f", function() awful.spawn("thunar") end,
         { description = "files", group = "launcher" }),
 
-    awful.key({ modkey }, "c", function() awful.spawn("code") end,
-        { description = "editor", group = "launcher" }),
-
-    awful.key({ modkey }, "i", function() awful.spawn(irc) end,
+    awful.key({ modkey }, "i", function() awful.spawn(terminal .. " --title=weechat -e weechat") end,
         { description = "irc", group = "launcher" }),
 
     awful.key({ modkey }, "t", function() awful.spawn("telegram") end,
@@ -326,10 +289,7 @@ clientkeys = gears.table.join(awful.key({ modkey, "Shift" }, "f",
             c.maximized = not c.maximized
             c:raise()
         end,
-        { description = "maximize", group = "client" }),
-
-    awful.key({ modkey, "Shift" }, "s", function(c) c.sticky = not c.sticky end,
-        { description = "toggle sticky client", group = "client" }))
+        { description = "maximize", group = "client" }))
 
 -- Bind all key numbers to tags.
 -- Be careful: we use keycodes to make it works on any keyboard layout.
@@ -401,7 +361,7 @@ awful.rules.rules = {
     },
 
     {
-        rule = { name = "Telegram*" },
+        rule = { class = "TelegramDesktop" },
         properties = { screen = 1, tag = awful.util.tagnames[2] }
     },
 
@@ -417,7 +377,7 @@ awful.rules.rules = {
 
     {
         rule = { class = "Dwarf_Fortress" },
-        properties = { fullscreen = true }
+        properties = { maximised = true }
     },
 
     {
@@ -425,24 +385,28 @@ awful.rules.rules = {
         properties = { maximised = true, screen = 2, tag = awful.util.tagnames[1] }
     },
 
-    -- Floating clients
+    -- {{{ Floating clients
+    {
+        rule = { class = "Firefox", name = "Library" },
+        properties = { floating = true }
+    },
+
     {
         rule_any = {
             class = {
-                "Gucharmap", "Galculator", "mpv", "Thunderbird",
-                "Transmission", "vim", "ncmpcpp", "Deluge",
-                "ranger", "feh", "Xarchiver", "Pinentry-gtk-2",
-                "Sxiv", "Pavucontrol", "mgba-sdl", "mgba-qt", "mGBA",
-                "Thunar", "File-roller", "float-term", "Lxappearance", "Pavucontrol",
-                "dwarftherapist", "Dwarf_Fortress", "SoundCenSeGTK", "obs"
+                "Gucharmap", "Galculator", "mpv", "vim", "ncmpcpp", "Deluge",
+                "Xarchiver", "Pinentry-gtk-2", "Sxiv", "Pavucontrol", "mgba-sdl", "mgba-qt",
+                "mGBA", "Thunar", "File-roller", "float-term", "Lxappearance", "Pavucontrol",
+                "dwarftherapist", "Dwarf_Fortress", "SoundCenSeGTK"
             },
-            name = { "Friends List", "float-term", "mutt", "ncmpcpp", "ranger", "Minecraft*", "PyLNP" },
+            name = { "Friends List", "float-term", "mutt", "ncmpcpp", "Minecraft*", "PyLNP" },
             role = { "task_dialog", "pop-up", "GtkFileChooserDialog" },
             type = { "dialog" },
             instance = { "plugin-container" }
         },
         properties = { floating = true }
     },
+    -- }}}
 }
 -- }}}
 
