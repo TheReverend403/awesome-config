@@ -366,11 +366,6 @@ awful.rules.rules = {
     },
 
     {
-        rule = { class = "Thunderbird" },
-        properties = { screen = 1, tag = awful.util.tagnames[3] }
-    },
-
-    {
         rule = { class = "Gimp", role = "gimp-image-window" },
         properties = { maximized = true }
     },
@@ -399,10 +394,10 @@ awful.rules.rules = {
                 "mGBA", "Thunar", "File-roller", "float-term", "Lxappearance", "Pavucontrol",
                 "dwarftherapist", "Dwarf_Fortress", "SoundCenSeGTK"
             },
-            name = { "Friends List", "float-term", "mutt", "ncmpcpp", "Minecraft*", "PyLNP" },
+            name = { "Friends List", "float-term", "mutt", "ncmpcpp", "Minecraft*", "PyLNP", "Address Book", "Thunderbird Preferences" },
             role = { "task_dialog", "pop-up", "GtkFileChooserDialog" },
             type = { "dialog" },
-            instance = { "plugin-container" }
+            instance = { "plugin-container", "Msgcompose" }
         },
         properties = { floating = true }
     },
