@@ -48,6 +48,7 @@ local modkey = "Mod4"
 local altkey = "Mod1"
 local terminal = "alacritty"
 local browser = os.getenv("BROWSER") or "firefox"
+local irc = terminal .. " --title=weechat -e weechat"
 
 awful.util.terminal = terminal
 awful.util.tagnames = { "1", "2", "3", "4", "5", "6", "7", "8", "9" }
@@ -72,6 +73,34 @@ awful.util.taglist_buttons = gears.table.join(awful.button({}, 1, function(t) t:
 local theme_path = string.format("%s/.config/awesome/themes/%s/theme.lua", os.getenv("HOME"), chosen_theme)
 beautiful.init(theme_path)
 naughty.config.defaults.border_width = beautiful.notification_border_width
+-- }}}
+
+-- {{{
+local function file_exists(name)
+   local f = io.open(name, "r")
+   if f ~= nil then
+       io.close(f)
+       return true
+    else
+        return false
+    end
+end
+
+local function run_once(cmd)
+    findme = cmd
+    firstspace = cmd:find(" ")
+    if firstspace then
+        findme = cmd:sub(0, firstspace-1)
+    end
+        oldspawn.with_shell("pgrep -u $USER -x '.*" .. findme .. ".*' > /dev/null || " .. cmd .. "")
+end
+
+if not file_exists(os.getenv("HOME") .. "/.noautostart") then
+    run_once(browser)
+    run_once("telegram")
+    run_once(irc)
+end
+
 -- }}}
 
 -- {{{ Menu
@@ -239,7 +268,7 @@ globalkeys = gears.table.join(-- Take a screenshot
     awful.key({ modkey }, "f", function() awful.spawn("thunar") end,
         { description = "files", group = "launcher" }),
 
-    awful.key({ modkey }, "i", function() awful.spawn(terminal .. " --title=weechat -e weechat") end,
+    awful.key({ modkey }, "i", function() awful.spawn(irc) end,
         { description = "irc", group = "launcher" }),
 
     awful.key({ modkey }, "t", function() awful.spawn("telegram") end,
