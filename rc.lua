@@ -53,7 +53,7 @@ local irc = terminal .. " --title=weechat -e weechat"
 awful.util.terminal = terminal
 awful.util.tagnames = { "1", "2", "3", "4", "5", "6", "7", "8", "9" }
 awful.layout.layouts = {
-    awful.layout.suit.fair,
+    awful.layout.suit.tile,
 }
 awful.util.taglist_buttons = gears.table.join(awful.button({}, 1, function(t) t:view_only() end),
     awful.button({ modkey }, 1, function(t)
@@ -89,10 +89,12 @@ end
 local function run_once(cmd)
     findme = cmd
     firstspace = cmd:find(" ")
+
     if firstspace then
-        findme = cmd:sub(0, firstspace-1)
+        findme = cmd:sub(0, firstspace - 1)
     end
-        oldspawn.with_shell("pgrep -u $USER -x '.*" .. findme .. ".*' > /dev/null || " .. cmd .. "")
+
+    oldspawn.with_shell("pgrep -u $USER -x '.*" .. findme .. ".*' > /dev/null || " .. cmd .. "")
 end
 
 if not file_exists(os.getenv("HOME") .. "/.noautostart") then
@@ -107,7 +109,7 @@ end
 awful.util.mymainmenu = awful.menu({
     items = {
         { "reload", awesome.restart },
-        { "logout", awesome.quit },
+        { "logout", function () awesome.quit() end },
         { "lock", "awesomeexit lock" },
         { "reboot", "awesomeexit reboot" },
         { "shutdown", "awesomeexit shutdown" }
@@ -196,6 +198,15 @@ globalkeys = gears.table.join(-- Take a screenshot
 
     awful.key({ modkey, "Shift" }, "Down", function() awful.client.swap.global_bydirection("down") end,
         { description = "swap client by direction", group = "client" }),
+
+    awful.key({ altkey, "Shift" }, "Right", function () awful.tag.incmwfact(0.02) end,
+        { description = "resize client by direction", group = "client"}),
+
+    awful.key({ altkey, "Shift" }, "Left", function () awful.tag.incmwfact(-0.02) end,
+        { description = "resize client by direction", group = "client"}),
+
+    awful.key({ altkey, "Shift" }, "Down", function () awful.client.incwfact(0.02) end,
+        { description = "resize client by direction", group = "client"}),
 
     awful.key({ modkey }, "u", awful.client.urgent.jumpto,
         { description = "jump to urgent client", group = "client" }),
