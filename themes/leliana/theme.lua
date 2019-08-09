@@ -52,7 +52,6 @@ theme.menu_height = dpi(20)
 theme.menu_width = dpi(140)
 theme.menu_submenu_icon = theme.dir .. "/icons/submenu.png"
 
-theme.widget_music_icon = ""
 theme.widget_music_icon_on = theme.color.magenta
 
 theme.notification_font = theme.font
@@ -139,17 +138,11 @@ function theme.at_screen_connect(s)
     end
     gears.wallpaper.maximized(wallpaper, s, true)
 
-    -- Tags
     awful.tag(awful.util.tagnames, s, awful.layout.layouts[1])
-
-    -- Create a promptbox for each screen
     s.mypromptbox = awful.widget.prompt()
-    -- Create a taglist widget
     s.mytaglist = awful.widget.taglist(s, awful.widget.taglist.filter.all, awful.util.taglist_buttons)
-
-    -- Create the wibox
     s.mywibox = awful.wibar({ position = "top", screen = s, height = theme.wibar_height, bg = theme.bg_normal, fg = theme.fg_normal })
-    -- Add widgets to the wibox
+
     s.mywibox:setup {
         layout = wibox.layout.align.horizontal,
         {

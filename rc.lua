@@ -49,12 +49,11 @@ local altkey = "Mod1"
 local terminal = "alacritty"
 local browser = os.getenv("BROWSER") or "firefox"
 local irc = terminal .. " --title=weechat -e weechat"
+-- }}}
 
+awful.layout.layouts = { awful.layout.suit.tile }
 awful.util.terminal = terminal
 awful.util.tagnames = { "1", "2", "3", "4", "5", "6", "7", "8", "9" }
-awful.layout.layouts = {
-    awful.layout.suit.tile,
-}
 awful.util.taglist_buttons = gears.table.join(awful.button({}, 1, function(t) t:view_only() end),
     awful.button({ modkey }, 1, function(t)
         if client.focus then
@@ -73,7 +72,6 @@ awful.util.taglist_buttons = gears.table.join(awful.button({}, 1, function(t) t:
 local theme_path = string.format("%s/.config/awesome/themes/%s/theme.lua", os.getenv("HOME"), chosen_theme)
 beautiful.init(theme_path)
 naughty.config.defaults.border_width = beautiful.notification_border_width
--- }}}
 
 -- {{{
 local function file_exists(name)
@@ -432,7 +430,7 @@ awful.rules.rules = {
                 "Gucharmap", "Galculator", "mpv", "vim", "ncmpcpp", "Deluge",
                 "Xarchiver", "Pinentry-gtk-2", "Sxiv", "Pavucontrol", "mgba-sdl", "mgba-qt",
                 "mGBA", "Thunar", "File-roller", "float-term", "Lxappearance", "Pavucontrol",
-                "dwarftherapist", "Dwarf_Fortress", "SoundCenSeGTK"
+                "dwarftherapist", "Dwarf_Fortress", "SoundCenSeGTK", "Nvidia-settings",
             },
             name = { "Friends List", "float-term", "mutt", "ncmpcpp", "Minecraft*", "PyLNP", "Address Book", "Thunderbird Preferences" },
             role = { "task_dialog", "pop-up", "GtkFileChooserDialog" },
