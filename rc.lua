@@ -46,7 +46,7 @@ end
 local chosen_theme = "leliana"
 local modkey = "Mod4"
 local altkey = "Mod1"
-local terminal = "alacritty"
+local terminal = "lxterminal"
 local browser = os.getenv("BROWSER") or "firefox"
 local irc = terminal .. " --title=weechat -e weechat"
 -- }}}
@@ -283,7 +283,7 @@ globalkeys = gears.table.join(-- Take a screenshot
     awful.key({ modkey }, "t", function() awful.spawn("telegram") end,
         { description = "telegram", group = "launcher" }),
 
-    awful.key({ modkey }, "m", function() awful.spawn(terminal .. " --dimensions 130 40 --title=ncmpcpp -e ncmpcpp") end,
+    awful.key({ modkey }, "m", function() awful.spawn(terminal .. " --geometry=130x40 --title=ncmpcpp -e ncmpcpp") end,
         { description = "music", group = "launcher" }),
 
     awful.key({ modkey }, "d", function () awful.screen.focused().mypromptbox:run() end,
