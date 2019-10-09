@@ -91,12 +91,10 @@ theme.mpd = lain.widget.mpd({
     timeout = 1,
     notify = "off",
     settings = function()
-        local artist = ""
-        local title = ""
-        local time = ""
-        artist = " " .. mpd_now.artist .. " "
-        title = mpd_now.title
-        playing_status = ""
+        local artist = " " .. mpd_now.artist .. " "
+        local title = mpd_now.title
+        local playing_status = ""
+
         if mpd_now.state == "play" then
             if mpd_now.time ~= "N/A" and mpd_now.elapsed ~= "N/A" then
                 playing_status = string.format(" (%s/%s)", format_time(mpd_now.elapsed), format_time(mpd_now.time))

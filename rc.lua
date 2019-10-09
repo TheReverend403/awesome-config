@@ -85,8 +85,8 @@ local function file_exists(name)
 end
 
 local function run_once(cmd)
-    findme = cmd
-    firstspace = cmd:find(" ")
+    local findme = cmd
+    local firstspace = cmd:find(" ")
 
     if firstspace then
         findme = cmd:sub(0, firstspace - 1)
@@ -97,7 +97,7 @@ end
 
 if not file_exists(os.getenv("HOME") .. "/.noautostart") then
     run_once(browser)
-    run_once("telegram")
+    run_once("telegram-desktop")
     run_once(irc)
 end
 
@@ -280,7 +280,7 @@ globalkeys = gears.table.join(-- Take a screenshot
     awful.key({ modkey }, "i", function() awful.spawn(irc) end,
         { description = "irc", group = "launcher" }),
 
-    awful.key({ modkey }, "t", function() awful.spawn("telegram") end,
+    awful.key({ modkey }, "t", function() awful.spawn("telegram-desktop") end,
         { description = "telegram", group = "launcher" }),
 
     awful.key({ modkey }, "m", function() awful.spawn(terminal .. " --geometry=130x40 --title=ncmpcpp -e ncmpcpp") end,
@@ -430,7 +430,7 @@ awful.rules.rules = {
                 "Gucharmap", "Galculator", "mpv", "vim", "ncmpcpp", "Deluge",
                 "Xarchiver", "Pinentry-gtk-2", "Sxiv", "Pavucontrol", "mgba-sdl", "mgba-qt",
                 "mGBA", "Thunar", "File-roller", "float-term", "Lxappearance", "Pavucontrol",
-                "dwarftherapist", "Dwarf_Fortress", "SoundCenSeGTK", "Nvidia-settings",
+                "dwarftherapist", "Dwarf_Fortress", "SoundCenSeGTK", "Nvidia-settings", "Code",
             },
             name = { "Friends List", "float-term", "mutt", "ncmpcpp", "Minecraft*", "PyLNP", "Address Book", "Thunderbird Preferences" },
             role = { "task_dialog", "pop-up", "GtkFileChooserDialog" },
