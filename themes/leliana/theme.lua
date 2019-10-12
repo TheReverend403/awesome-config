@@ -32,7 +32,7 @@ theme.color = {
 
 theme.dir = os.getenv("HOME") .. "/.config/awesome/themes/leliana"
 theme.wallpaper = theme.dir .. "/wall.png"
-theme.font = "xos4 Terminus 11"
+theme.font = "Roboto Mono Medium 11"
 
 theme.fg_normal = theme.color.foreground
 theme.fg_focus = theme.color.magenta
@@ -125,7 +125,7 @@ theme.vpn = awful.widget.watch("ip addr show wg0", 5,
 )
 
 -- Separators
-local spr = wibox.widget.textbox(markup(theme.color.gray, "  |  "))
+local spr = wibox.widget.textbox(markup(theme.color.gray, "  ││  "))
 local space = wibox.widget.textbox(" ")
 
 function theme.at_screen_connect(s)

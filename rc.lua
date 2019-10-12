@@ -415,7 +415,7 @@ awful.rules.rules = {
 
     {
         rule = { name = "weechat" },
-        properties = { maximised = true, screen = 2, tag = awful.util.tagnames[1] }
+        properties = { maximised = true, screen = 1, tag = awful.util.tagnames[3] }
     },
 
     -- {{{ Floating clients
