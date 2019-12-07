@@ -32,7 +32,7 @@ theme.color = {
 
 theme.dir = os.getenv("HOME") .. "/.config/awesome/themes/leliana"
 theme.wallpaper = theme.dir .. "/wall.png"
-theme.font = "Roboto Mono Medium 11"
+theme.font = "Roboto Medium 12"
 
 theme.fg_normal = theme.color.foreground
 theme.fg_focus = theme.color.magenta
