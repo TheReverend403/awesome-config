@@ -147,6 +147,10 @@ globalkeys = gears.table.join(-- Take a screenshot
     awful.key({ modkey, "Shift" }, "s", function() awful.spawn("pstepw -p") end,
         { description = "upload text from clipboard", group = "hotkeys" }),
 
+    -- rofimoji
+    awful.key({ modkey, "Shift" }, "e", function() awful.spawn("rofimoji") end,
+        { description = "emoji picker", group = "hotkeys" }),
+
     -- X screen locker
     awful.key({ modkey }, "l", function() awful.spawn("awesomeexit lock") end,
         { description = "lock screen", group = "hotkeys" }),
@@ -431,6 +435,7 @@ awful.rules.rules = {
                 "Xarchiver", "Pinentry-gtk-2", "Sxiv", "Pavucontrol", "mgba-sdl", "mgba-qt",
                 "mGBA", "Thunar", "File-roller", "float-term", "Lxappearance", "Pavucontrol",
                 "dwarftherapist", "Dwarf_Fortress", "SoundCenSeGTK", "Nvidia-settings", "Code",
+                "minecraft-launcher", "jetbrains-pycharm"
             },
             name = { "Friends List", "float-term", "mutt", "ncmpcpp", "Minecraft*", "PyLNP", "Address Book", "Thunderbird Preferences" },
             role = { "task_dialog", "pop-up", "GtkFileChooserDialog" },

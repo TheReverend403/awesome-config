@@ -47,6 +47,7 @@ theme.border_width = dpi(2)
 theme.border_normal = theme.color.gray
 theme.border_focus = theme.color.magenta
 theme.border_marked = theme.color.red
+-- theme.useless_gap = 5
 
 theme.menu_height = dpi(20)
 theme.menu_width = dpi(140)
@@ -112,7 +113,7 @@ theme.mpd = lain.widget.mpd({
 })
 
 -- VPN status
-theme.vpn = awful.widget.watch("ip addr show wg0", 5,
+theme.vpn = awful.widget.watch("ip addr show wg0", 1,
     function(widget, stdout, stderr, exitreason, exitcode)
         local status_color
         if exitcode ~= 0 then
