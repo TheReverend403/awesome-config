@@ -140,15 +140,18 @@ root.buttons(gears.table.join(awful.button({}, 3, function() awful.util.mymainme
 
 -- {{{ Key bindings
 globalkeys = gears.table.join(-- Take a screenshot
-    awful.key({ modkey }, "s", function() awful.spawn("pstepw -s") end,
+    awful.key({}, "Print", function() awful.spawn("pstepw") end,
         { description = "take a screenshot", group = "hotkeys" }),
+
+    awful.key({ modkey }, "s", function() awful.spawn("pstepw -s") end,
+        { description = "take a screenshot (selection)", group = "hotkeys" }),
 
     -- Upload contents of clipboard
     awful.key({ modkey, "Shift" }, "s", function() awful.spawn("pstepw -p") end,
         { description = "upload text from clipboard", group = "hotkeys" }),
 
     -- rofimoji
-    awful.key({ modkey, "Shift" }, "e", function() awful.spawn("rofimoji") end,
+    awful.key({ modkey, "Shift" }, "e", function() awful.spawn("emoji") end,
         { description = "emoji picker", group = "hotkeys" }),
 
     -- X screen locker
@@ -437,7 +440,7 @@ awful.rules.rules = {
                 "dwarftherapist", "Dwarf_Fortress", "SoundCenSeGTK", "Nvidia-settings", "Code",
                 "minecraft-launcher", "jetbrains-pycharm"
             },
-            name = { "Friends List", "float-term", "mutt", "ncmpcpp", "Minecraft*", "PyLNP", "Address Book", "Thunderbird Preferences" },
+            name = { "Friends List", "float-term", "Minecraft*", "ncmpcpp", "PyLNP", "Address Book", "Thunderbird Preferences" },
             role = { "task_dialog", "pop-up", "GtkFileChooserDialog" },
             type = { "dialog" },
             instance = { "plugin-container", "Msgcompose" }
