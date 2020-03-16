@@ -51,9 +51,8 @@ local browser = os.getenv("BROWSER") or "firefox"
 local irc = terminal .. " --title=weechat -e weechat"
 -- }}}
 
-awful.layout.layouts = { awful.layout.suit.corner.nw }
 awful.util.terminal = terminal
-awful.util.tagnames = { "1", "2", "3", "4", "5", "6", "7", "8", "9" }
+
 awful.util.taglist_buttons = gears.table.join(awful.button({}, 1, function(t) t:view_only() end),
     awful.button({ modkey }, 1, function(t)
         if client.focus then
@@ -402,12 +401,17 @@ awful.rules.rules = {
 
     {
         rule_any = { class = { "Firefox", "Chromium-browser-chromium" }, },
-        properties = { screen = 1, tag = awful.util.tagnames[1] }
+        properties = { screen = 1, tag = screen[1].tags[1] }
     },
 
     {
         rule = { class = "TelegramDesktop" },
-        properties = { screen = 1, tag = awful.util.tagnames[2] }
+        properties = { screen = 1, tag = screen[1].tags[2] }
+    },
+
+    {
+        rule = { name = "weechat" },
+        properties = { screen = 1, tag = screen[1].tags[3] }
     },
 
     {
@@ -418,11 +422,6 @@ awful.rules.rules = {
     {
         rule = { class = "Dwarf_Fortress" },
         properties = { maximised = true }
-    },
-
-    {
-        rule = { name = "weechat" },
-        properties = { maximised = true, screen = 1, tag = awful.util.tagnames[3] }
     },
 
     -- {{{ Floating clients
@@ -438,7 +437,7 @@ awful.rules.rules = {
                 "Xarchiver", "Pinentry-gtk-2", "Sxiv", "Pavucontrol", "mgba-sdl", "mgba-qt",
                 "mGBA", "Thunar", "File-roller", "float-term", "Lxappearance", "Pavucontrol",
                 "dwarftherapist", "Dwarf_Fortress", "SoundCenSeGTK", "Nvidia-settings", "Code",
-                "minecraft-launcher", "jetbrains-pycharm"
+                "minecraft-launcher", "jetbrains-pycharm", "Virt-manager"
             },
             name = { "Friends List", "float-term", "Minecraft*", "ncmpcpp", "PyLNP", "Address Book", "Thunderbird Preferences" },
             role = { "task_dialog", "pop-up", "GtkFileChooserDialog" },

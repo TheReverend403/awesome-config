@@ -137,7 +137,13 @@ function theme.at_screen_connect(s)
     end
     gears.wallpaper.maximized(wallpaper, s, true)
 
-    awful.tag(awful.util.tagnames, s, awful.layout.layouts[1])
+    for idx = 1, 9 do
+        awful.tag.add(tostring(idx), { 
+            layout = awful.layout.suit.tile.left,
+            screen = s,
+        })
+    end
+
     s.mypromptbox = awful.widget.prompt()
     s.mytaglist = awful.widget.taglist(s, awful.widget.taglist.filter.all, awful.util.taglist_buttons)
     s.mywibox = awful.wibar({ position = "top", screen = s, height = theme.wibar_height, bg = theme.bg_normal, fg = theme.fg_normal })
