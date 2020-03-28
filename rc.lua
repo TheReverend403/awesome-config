@@ -289,7 +289,7 @@ globalkeys = gears.table.join(-- Take a screenshot
     awful.key({ modkey }, "t", function() awful.spawn("telegram-desktop") end,
         { description = "telegram", group = "launcher" }),
 
-    awful.key({ modkey }, "m", function() awful.spawn(terminal .. " --geometry=130x30 --title=ncmpcpp -e ncmpcpp") end,
+    awful.key({ modkey }, "m", function() awful.spawn(terminal .. " --geometry=120x30 --title=ncmpcpp -e ncmpcpp") end,
         { description = "music", group = "launcher" }),
 
     awful.key({ modkey }, "d", function () awful.screen.focused().mypromptbox:run() end,
@@ -437,7 +437,7 @@ awful.rules.rules = {
                 "Xarchiver", "Pinentry-gtk-2", "Sxiv", "Pavucontrol", "mgba-sdl", "mgba-qt",
                 "mGBA", "Thunar", "File-roller", "float-term", "Lxappearance", "Pavucontrol",
                 "dwarftherapist", "Dwarf_Fortress", "SoundCenSeGTK", "Nvidia-settings", "Code",
-                "minecraft-launcher", "jetbrains-pycharm", "Virt-manager"
+                "minecraft-launcher", "jetbrains-pycharm", "Virt-manager", "net-technicpack-launcher-LauncherMain"
             },
             name = { "Friends List", "float-term", "Minecraft*", "ncmpcpp", "PyLNP", "Address Book", "Thunderbird Preferences" },
             role = { "task_dialog", "pop-up", "GtkFileChooserDialog" },
