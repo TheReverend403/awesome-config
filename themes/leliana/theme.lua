@@ -113,7 +113,7 @@ theme.mpd = lain.widget.mpd({
 })
 
 -- VPN status
-theme.vpn = awful.widget.watch("ip addr show wg0", 1,
+theme.vpn = awful.widget.watch("ip addr show wg0", 0.1,
     function(widget, stdout, stderr, exitreason, exitcode)
         local status_color
         if exitcode ~= 0 then
