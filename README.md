@@ -1,1 +1,2 @@
-![screenshot](preview.png)
+![clean](clean.png)
+![busy](busy.png)

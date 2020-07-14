@@ -41,13 +41,13 @@ theme.bg_normal = theme.color.background
 theme.bg_focus = theme.color.background
 theme.bg_urgent = theme.color.background
 
-theme.wibar_height = dpi(20)
+theme.wibar_height = dpi(25)
 
 theme.border_width = dpi(2)
 theme.border_normal = theme.color.gray
 theme.border_focus = theme.color.magenta
 theme.border_marked = theme.color.red
--- theme.useless_gap = 5
+--theme.useless_gap = 5
 
 theme.menu_height = dpi(20)
 theme.menu_width = dpi(140)
@@ -99,10 +99,10 @@ theme.mpd = lain.widget.mpd({
         if mpd_now.state == "play" then
             if mpd_now.time ~= "N/A" and mpd_now.elapsed ~= "N/A" then
                 playing_status = string.format(" (%s/%s)", format_time(mpd_now.elapsed), format_time(mpd_now.time))
-                playing_status = markup(theme.color.light_gray, playing_status)
+                playing_status = markup(theme.color.gray, playing_status)
             end
         elseif mpd_now.state == "pause" then
-            playing_status = markup(theme.color.light_gray, " (paused)")
+            playing_status = markup(theme.color.gray, " (paused)")
         else
             artist = ""
             title = ""
