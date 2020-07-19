@@ -43,7 +43,7 @@ awful.spawn = function(s)
 end
 
 -- {{{ Variable definitions
-local chosen_theme = "leliana"
+local chosen_theme = "lelianux"
 local modkey = "Mod4"
 local altkey = "Mod1"
 local terminal = "alacritty"
@@ -292,7 +292,7 @@ globalkeys = gears.table.join(-- Take a screenshot
     awful.key({ modkey }, "m", function() awful.spawn(terminal .. " --dimensions 130 40 --title=ncmpcpp -e ncmpcpp") end,
         { description = "music", group = "launcher" }),
 
-    awful.key({ modkey }, "d", function () awful.screen.focused().mypromptbox:run() end,
+    awful.key({ modkey }, "d", function () awful.spawn("rofi -show run") end,
         {description = "run prompt", group = "launcher"}),
 
     awful.key({}, "XF86Calculator", function() awful.spawn("galculator") end,
