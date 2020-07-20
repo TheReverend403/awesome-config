@@ -33,8 +33,8 @@ theme.color = {
 theme.dir = os.getenv("HOME") .. "/.config/awesome/themes/lelianux"
 theme.wallpaper = theme.dir .. "/wall.png"
 
-theme.font = "Roboto 12"
-theme.monospace_font = "Roboto Mono 12"
+theme.font = "Roboto Medium 12"
+theme.monospace_font = "Source Code Pro Medium 12"
 
 theme.fg_normal = theme.color.foreground
 theme.fg_focus = theme.color.magenta
@@ -50,7 +50,6 @@ theme.border_normal = theme.color.gray
 theme.border_focus = theme.color.magenta
 theme.border_urgent = theme.color.yellow
 theme.border_marked = theme.color.red
---theme.useless_gap = 5
 
 theme.menu_height = dpi(20)
 theme.menu_width = dpi(140)
