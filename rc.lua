@@ -97,7 +97,6 @@ end
 if not file_exists(os.getenv("HOME") .. "/.noautostart") then
     run_once(browser)
     run_once("telegram-desktop")
-    run_once(irc)
 end
 
 -- }}}
@@ -289,7 +288,7 @@ globalkeys = gears.table.join(-- Take a screenshot
     awful.key({ modkey }, "t", function() awful.spawn("telegram-desktop") end,
         { description = "telegram", group = "launcher" }),
 
-    awful.key({ modkey }, "m", function() awful.spawn(terminal .. " --dimensions 130 40 --title=ncmpcpp -e ncmpcpp") end,
+    awful.key({ modkey }, "m", function() awful.spawn(terminal .. " --dimensions 115 30 --title=ncmpcpp -e ncmpcpp") end,
         { description = "music", group = "launcher" }),
 
     awful.key({ modkey }, "d", function () awful.spawn("rofi -show run") end,

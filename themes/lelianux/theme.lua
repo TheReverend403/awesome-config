@@ -48,14 +48,13 @@ theme.wibar_height = dpi(25)
 theme.border_width = dpi(2)
 theme.border_normal = theme.color.gray
 theme.border_focus = theme.color.magenta
+theme.border_urgent = theme.color.yellow
 theme.border_marked = theme.color.red
 --theme.useless_gap = 5
 
 theme.menu_height = dpi(20)
 theme.menu_width = dpi(140)
 theme.menu_submenu_icon = theme.dir .. "/icons/submenu.png"
-
-theme.widget_music_icon_on = theme.color.magenta
 
 theme.notification_font = theme.font
 theme.notification_fg = theme.fg_normal
@@ -70,7 +69,7 @@ theme.hotkeys_border_color = theme.border_focus
 theme.hotkeys_font = theme.font
 theme.hotkeys_description_font = theme.font
 theme.hotkeys_modifiers_fg = theme.color.magenta
-theme.hotkeys_group_margin = dpi(15)
+theme.hotkeys_group_margin = dpi(20)
 
 -- Clock
 local date = wibox.widget.textclock(markup(theme.fg_normal, markup.font(theme.font, "%a %d %b - %R")))
@@ -78,6 +77,7 @@ local date = wibox.widget.textclock(markup(theme.fg_normal, markup.font(theme.fo
 -- Calendar
 theme.cal = lain.widget.cal({
     attach_to = { date },
+    icons = "",
     notification_preset = {
         font = theme.monospace_font,
         fg = theme.fg_normal,
@@ -110,7 +110,7 @@ theme.mpd = lain.widget.mpd({
             title = ""
         end
 
-        widget:set_markup(markup.font(theme.font, markup(theme.widget_music_icon_on, artist) .. title .. playing_status))
+        widget:set_markup(markup.font(theme.font, markup(theme.color.magenta, artist) .. title .. playing_status))
     end
 })
 
