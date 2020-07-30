@@ -36,12 +36,6 @@ do
 end
 -- }}}
 
--- disable startup-notification globally
-local oldspawn = awful.spawn
-awful.spawn = function(s)
-    oldspawn(s, false)
-end
-
 -- {{{ Variable definitions
 local chosen_theme = "lelianux"
 local modkey = "Mod4"
@@ -70,7 +64,10 @@ awful.util.taglist_buttons = gears.table.join(awful.button({}, 1, function(t) t:
 
 local theme_path = string.format("%s/.config/awesome/themes/%s/theme.lua", os.getenv("HOME"), chosen_theme)
 beautiful.init(theme_path)
+
+-- https://www.reddit.com/r/awesomewm/comments/9lvkvg/increase_margin_to_the_text_inside_notifications/e7bgz44/
 naughty.config.defaults.border_width = beautiful.notification_border_width
+naughty.config.defaults.notification_icon_size = beautiful.notification_icon_size
 
 -- {{{
 local function file_exists(name)
@@ -83,20 +80,14 @@ local function file_exists(name)
     end
 end
 
-local function run_once(cmd)
-    local findme = cmd
-    local firstspace = cmd:find(" ")
-
-    if firstspace then
-        findme = cmd:sub(0, firstspace - 1)
+local function run_once(cmd_arr)
+    for _, cmd in ipairs(cmd_arr) do
+        awful.spawn.with_shell(string.format("pgrep -u $USER -fx '%s' > /dev/null || (%s)", cmd, cmd))
     end
-
-    oldspawn.with_shell("pgrep -u $USER -x '.*" .. findme .. ".*' > /dev/null || " .. cmd .. "")
 end
 
 if not file_exists(os.getenv("HOME") .. "/.noautostart") then
-    run_once(browser)
-    run_once("telegram-desktop")
+    run_once({browser, "telegram-desktop"})
 end
 
 -- }}}
@@ -125,6 +116,18 @@ screen.connect_signal("property::geometry", function(s)
             wallpaper = wallpaper(s)
         end
         gears.wallpaper.maximized(wallpaper, s, true)
+    end
+end)
+
+-- No borders when rearranging only 1 non-floating or maximized client
+screen.connect_signal("arrange", function (s)
+    local only_one = #s.tiled_clients == 1
+    for _, c in pairs(s.clients) do
+        if only_one and not c.floating or c.maximized then
+            c.border_width = 0
+        else
+            c.border_width = beautiful.border_width
+        end
     end
 end)
 
@@ -324,8 +327,11 @@ clientkeys = gears.table.join(awful.key({ modkey, "Shift" }, "f",
     awful.key({ modkey, "Shift" }, "o", function(c) c:move_to_screen() end,
         { description = "move to screen", group = "client" }),
 
-    awful.key({ modkey, "Shift" }, "t", function(c) c.ontop = not c.ontop end,
+    awful.key({ modkey, "Control" }, "t", function(c) c.ontop = not c.ontop end,
         { description = "toggle keep on top", group = "client" }),
+
+    awful.key({ modkey, "Control" }, "s", function(c) c.sticky = not c.sticky end,
+        { description = "toggle sticky client", group = "client" }),
 
     awful.key({ modkey, "Shift" }, "m",
         function(c)
@@ -456,14 +462,14 @@ awful.rules.rules = {
 
 -- {{{ Signals
 -- Signal function to execute when a new client appears.
-client.connect_signal("manage", function(c)
+client.connect_signal("manage", function (c)
     -- Set the windows at the slave,
     -- i.e. put it at the end of others instead of setting it master.
     -- if not awesome.startup then awful.client.setslave(c) end
 
     if awesome.startup and
-            not c.size_hints.user_position
-            and not c.size_hints.program_position then
+      not c.size_hints.user_position
+      and not c.size_hints.program_position then
         -- Prevent clients from being unreachable after screen count changes.
         awful.placement.no_offscreen(c)
     end
@@ -471,24 +477,8 @@ end)
 
 -- Enable sloppy focus, so that focus follows mouse.
 client.connect_signal("mouse::enter", function(c)
-    if awful.layout.get(c.screen) ~= awful.layout.suit.magnifier
-            and awful.client.focus.filter(c) then
-        client.focus = c
-    end
+    c:emit_signal("request::activate", "mouse_enter", {raise = false})
 end)
-
--- No border for maximized clients
-function border_adjust(c)
-    if c.maximized then -- no borders if only 1 client visible
-        c.border_width = 0
-    elseif #awful.screen.focused({ client = true }).clients > 1 then
-        c.border_width = beautiful.border_width
-        c.border_color = beautiful.border_focus
-    else
-        c.border_width = 0
-    end
-end
-
 
 -- {{{ No DPMS for fullscreen clients
 local fullscreened_clients = {}
@@ -542,9 +532,7 @@ end
 
 -- }}}
 
-client.connect_signal("manage", border_adjust)
-client.connect_signal("unmanage", border_adjust)
-client.connect_signal("focus", border_adjust)
+client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 
 client.connect_signal("unmanage", dpms_enable)

@@ -60,6 +60,7 @@ theme.notification_fg = theme.fg_normal
 theme.notification_bg = theme.bg_normal
 theme.notification_border_color = theme.border_focus
 theme.notification_border_width = theme.border_width
+theme.notification_icon_size = 64
 
 theme.hotkeys_bg = theme.bg_normal
 theme.hotkeys_fg = theme.fg_normal
