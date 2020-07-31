@@ -30,8 +30,8 @@ theme.color = {
     light_cyan = xrdb.color14
 }
 
-theme.dir = os.getenv("HOME") .. "/.config/awesome/themes/lelianux"
-theme.wallpaper = theme.dir .. "/wall.png"
+theme.dir = string.format("%s/.config/awesome/themes/lelianux", os.getenv("HOME"))
+theme.wallpaper = string.format("%s/wall.png", theme.dir)
 
 theme.font = "Roboto Medium 12"
 theme.monospace_font = "Source Code Pro Medium 12"
@@ -53,7 +53,6 @@ theme.border_marked = theme.color.red
 
 theme.menu_height = dpi(20)
 theme.menu_width = dpi(140)
-theme.menu_submenu_icon = theme.dir .. "/icons/submenu.png"
 
 theme.notification_font = theme.font
 theme.notification_fg = theme.fg_normal
@@ -86,7 +85,7 @@ theme.cal = lain.widget.cal({
 })
 
 -- MPD
-function format_time(s)
+local function format_time(s)
     return string.format("%d:%.2d", math.floor(s / 60), s % 60)
 end
 
@@ -94,7 +93,7 @@ theme.mpd = lain.widget.mpd({
     timeout = 1,
     notify = "off",
     settings = function()
-        local artist = " " .. mpd_now.artist .. " "
+        local artist = string.format(" %s ", mpd_now.artist)
         local title = mpd_now.title
         local playing_status = ""
 

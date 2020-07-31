@@ -86,7 +86,7 @@ local function run_once(cmd_arr)
     end
 end
 
-if not file_exists(os.getenv("HOME") .. "/.noautostart") then
+if not file_exists(string.format("%s/.noautostart", os.getenv("HOME"))) then
     run_once({browser, "telegram-desktop"})
 end
 
@@ -483,7 +483,18 @@ end)
 -- {{{ No DPMS for fullscreen clients
 local fullscreened_clients = {}
 
-function dpms_disable(c)
+local function remove_client(tabl, c)
+    local index = awful.util.table.hasitem(tabl, c)
+    if index then
+        table.remove(tabl, index)
+        if #tabl == 0 then
+            awful.spawn("xset s on")
+            awful.spawn("xset +dpms")
+        end
+    end
+end
+
+local function dpms_disable(c)
     if c.fullscreen then
         table.insert(fullscreened_clients, c)
         if #fullscreened_clients == 1 then
@@ -495,19 +506,7 @@ function dpms_disable(c)
     end
 end
 
-function remove_client(tabl, c)
-    local index = awful.util.table.hasitem(tabl, c)
-    if index then
-        table.remove(tabl, index)
-        if #tabl == 0 then
-            awful.spawn("xset s on")
-            awful.spawn("xset +dpms")
-        end
-    end
-end
-
-
-function dpms_enable(c)
+local function dpms_enable(c)
     if c.fullscreen then
         remove_client(fullscreened_clients, c)
     end
