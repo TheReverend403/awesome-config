@@ -30,7 +30,7 @@ theme.color = {
     light_cyan = xrdb.color14
 }
 
-theme.dir = string.format("%s/.config/awesome/themes/lelianux", os.getenv("HOME"))
+theme.dir = string.format("%s/themes/lelianux", gears.filesystem.get_configuration_dir())
 theme.wallpaper = string.format("%s/wall.png", theme.dir)
 
 theme.font = "Roboto Medium 12"
@@ -109,7 +109,7 @@ theme.mpd = lain.widget.mpd({
             title = ""
         end
 
-        widget:set_markup(markup.font(theme.font, markup(theme.color.magenta, artist) .. title .. playing_status))
+        widget:set_markup(markup.font(theme.font, string.format("%s%s%s", markup(theme.color.magenta, artist), title, playing_status)))
     end
 })
 

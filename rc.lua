@@ -42,7 +42,7 @@ local modkey = "Mod4"
 local altkey = "Mod1"
 local terminal = "alacritty"
 local browser = os.getenv("BROWSER") or "firefox"
-local irc = terminal .. " --title=weechat -e weechat"
+local irc = string.format("%s --title=weechat -e weechat", terminal)
 -- }}}
 
 awful.util.terminal = terminal
@@ -62,7 +62,7 @@ awful.util.taglist_buttons = gears.table.join(awful.button({}, 1, function(t) t:
     awful.button({}, 4, function(t) awful.tag.viewnext(t.screen) end),
     awful.button({}, 5, function(t) awful.tag.viewprev(t.screen) end))
 
-local theme_path = string.format("%s/.config/awesome/themes/%s/theme.lua", os.getenv("HOME"), chosen_theme)
+local theme_path = string.format("%s/themes/%s/theme.lua", gears.filesystem.get_configuration_dir(), chosen_theme)
 beautiful.init(theme_path)
 
 -- https://www.reddit.com/r/awesomewm/comments/9lvkvg/increase_margin_to_the_text_inside_notifications/e7bgz44/
@@ -291,7 +291,7 @@ globalkeys = gears.table.join(-- Take a screenshot
     awful.key({ modkey }, "t", function() awful.spawn("telegram-desktop") end,
         { description = "telegram", group = "launcher" }),
 
-    awful.key({ modkey }, "m", function() awful.spawn(terminal .. " --dimensions 115 30 --title=ncmpcpp -e ncmpcpp") end,
+    awful.key({ modkey }, "m", function() awful.spawn(string.format("%s --dimensions %s %s --title=ncmpcpp -e ncmpcpp", terminal, 115, 30)) end,
         { description = "music", group = "launcher" }),
 
     awful.key({ modkey }, "d", function () awful.spawn("rofi -show run") end,
@@ -306,7 +306,7 @@ globalkeys = gears.table.join(-- Take a screenshot
                 prompt = "Run Lua code: ",
                 textbox = awful.screen.focused().mypromptbox.widget,
                 exe_callback = awful.util.eval,
-                history_path = awful.util.get_cache_dir() .. "/history_eval"
+                history_path = string.format("%s/history_eval", gears.filesystem.get_cache_dir())
             }
         end,
         { description = "lua prompt", group = "awesome" }))
@@ -354,7 +354,7 @@ for i = 1, 9 do
 
     globalkeys = gears.table.join(globalkeys,
         -- View tag only.
-        awful.key({ modkey }, "#" .. i + 9,
+        awful.key({ modkey }, string.format("#%s", i + 9),
             function()
                 local screen = awful.screen.focused()
                 local tag = screen.tags[i]
@@ -365,7 +365,7 @@ for i = 1, 9 do
             descr_view),
 
         -- Move client to tag.
-        awful.key({ modkey, "Shift" }, "#" .. i + 9,
+        awful.key({ modkey, "Shift" }, string.format("#%s", i + 9),
             function()
                 if client.focus then
                     local tag = client.focus.screen.tags[i]
