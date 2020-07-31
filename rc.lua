@@ -9,7 +9,6 @@ local beautiful = require("beautiful")
 local naughty = require("naughty")
 local lain = require("lain")
 local hotkeys_popup = require("awful.hotkeys_popup").widget
-require("eminent")
 
 -- {{{ Error handling
 if awesome.startup_errors then
@@ -46,6 +45,7 @@ local irc = string.format("%s --title=weechat -e weechat", terminal)
 -- }}}
 
 awful.util.terminal = terminal
+awful.util.tagnames = { "1", "2", "3", "4", "5" , "6", "7", "8", "9"}
 
 awful.util.taglist_buttons = gears.table.join(awful.button({}, 1, function(t) t:view_only() end),
     awful.button({ modkey }, 1, function(t)
@@ -406,17 +406,17 @@ awful.rules.rules = {
 
     {
         rule_any = { class = { "Firefox", "Chromium-browser-chromium" }, },
-        properties = { screen = 1, tag = screen[1].tags[1] }
+        properties = { screen = 1, tag = awful.util.tagnames[1] }
     },
 
     {
         rule = { class = "TelegramDesktop" },
-        properties = { screen = 1, tag = screen[1].tags[2] }
+        properties = { screen = 1, tag = awful.util.tagnames[2] }
     },
 
     {
         rule = { name = "weechat" },
-        properties = { screen = 1, tag = screen[1].tags[3] }
+        properties = { screen = 1, tag = awful.util.tagnames[3] }
     },
 
     {

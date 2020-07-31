@@ -43,6 +43,8 @@ theme.bg_normal = theme.color.background
 theme.bg_focus = theme.color.background
 theme.bg_urgent = theme.color.background
 
+theme.taglist_fg_empty = theme.color.gray
+
 theme.wibar_height = dpi(25)
 
 theme.border_width = dpi(2)
