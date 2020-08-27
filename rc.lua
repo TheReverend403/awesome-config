@@ -45,7 +45,7 @@ local irc = string.format("%s --title=weechat -e weechat", terminal)
 -- }}}
 
 awful.util.terminal = terminal
-awful.util.tagnames = { "1", "2", "3", "4", "5" , "6", "7", "8", "9"}
+awful.util.tagnames = { "1", "2", "3", "4", "5" , "6", "7", "8", "9" }
 
 awful.util.taglist_buttons = gears.table.join(awful.button({}, 1, function(t) t:view_only() end),
     awful.button({ modkey }, 1, function(t)
@@ -82,12 +82,12 @@ end
 
 local function run_once(cmd_arr)
     for _, cmd in ipairs(cmd_arr) do
-        awful.spawn.with_shell(string.format("pgrep -u $USER -fx '%s' > /dev/null || (%s)", cmd, cmd))
+        awful.spawn.single_instance(cmd, {})
     end
 end
 
 if not file_exists(string.format("%s/.noautostart", os.getenv("HOME"))) then
-    run_once({browser, "telegram-desktop"})
+    run_once({browser, "telegram"})
 end
 
 -- }}}
@@ -140,7 +140,8 @@ root.buttons(gears.table.join(awful.button({}, 3, function() awful.util.mymainme
 -- }}}
 
 -- {{{ Key bindings
-globalkeys = gears.table.join(-- Take a screenshot
+globalkeys = gears.table.join(
+    -- Take a screenshot
     awful.key({}, "Print", function() awful.spawn("pstepw") end,
         { description = "take a screenshot", group = "hotkeys" }),
 
@@ -425,8 +426,8 @@ awful.rules.rules = {
     },
 
     {
-        rule = { class = "Dwarf_Fortress" },
-        properties = { maximised = true }
+        rule = { class = "Minecraft*" },
+        properties = { maximized = true, floating = true }
     },
 
     {
@@ -447,9 +448,9 @@ awful.rules.rules = {
                 "Xarchiver", "Pinentry-gtk-2", "Sxiv", "Pavucontrol", "mgba-sdl", "mgba-qt",
                 "mGBA", "Thunar", "File-roller", "float-term", "Lxappearance", "Pavucontrol",
                 "dwarftherapist", "Dwarf_Fortress", "SoundCenSeGTK", "Nvidia-settings", "Code",
-                "minecraft-launcher", "jetbrains-pycharm", "Virt-manager", "net-technicpack-launcher-LauncherMain"
+                "minecraft-launcher", "jetbrains-pycharm", "Virt-manager", "net-technicpack-launcher-LauncherMain", "Spek",
             },
-            name = { "Friends List", "float-term", "Minecraft*", "ncmpcpp", "PyLNP", "Address Book", "Thunderbird Preferences" },
+            name = { "Friends List", "float-term", "Minecraft.*", "ncmpcpp", "PyLNP", "Address Book", "Thunderbird Preferences" },
             role = { "task_dialog", "pop-up", "GtkFileChooserDialog" },
             type = { "dialog" },
             instance = { "plugin-container", "Msgcompose" }
@@ -533,6 +534,7 @@ end
 
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
+client.connect_signal("property::maximized", function(c) c.border_width = 0 end)
 
 client.connect_signal("unmanage", dpms_enable)
 client.connect_signal("property::fullscreen", dpms_disable)
