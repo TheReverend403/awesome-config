@@ -142,7 +142,7 @@ function theme.at_screen_connect(s)
 
     for idx = 1, 9 do
         awful.tag.add(tostring(idx), { 
-            layout = awful.layout.suit.tile.left,
+            layout = awful.layout.suit.corner.nw,
             screen = s,
         })
     end

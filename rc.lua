@@ -87,7 +87,7 @@ local function run_once(cmd_arr)
 end
 
 if not file_exists(string.format("%s/.noautostart", os.getenv("HOME"))) then
-    run_once({browser, "telegram"})
+    run_once({browser, "telegram", irc})
 end
 
 -- }}}
@@ -448,7 +448,7 @@ awful.rules.rules = {
                 "Xarchiver", "Pinentry-gtk-2", "Sxiv", "Pavucontrol", "mgba-sdl", "mgba-qt",
                 "mGBA", "Thunar", "File-roller", "float-term", "Lxappearance", "Pavucontrol",
                 "dwarftherapist", "Dwarf_Fortress", "SoundCenSeGTK", "Nvidia-settings", "Code",
-                "minecraft-launcher", "jetbrains-pycharm", "Virt-manager", "net-technicpack-launcher-LauncherMain", "Spek",
+                "minecraft-launcher", "jetbrains-pycharm", "Virt-manager", "net-technicpack-launcher-LauncherMain", "Spek", "GParted",
             },
             name = { "Friends List", "float-term", "Minecraft.*", "ncmpcpp", "PyLNP", "Address Book", "Thunderbird Preferences" },
             role = { "task_dialog", "pop-up", "GtkFileChooserDialog" },
