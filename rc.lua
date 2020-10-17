@@ -71,10 +71,10 @@ naughty.config.defaults.notification_icon_size = beautiful.notification_icon_siz
 
 -- {{{
 local function file_exists(name)
-   local f = io.open(name, "r")
-   if f ~= nil then
-       io.close(f)
-       return true
+    local f = io.open(name, "r")
+    if f ~= nil then
+        io.close(f)
+        return true
     else
         return false
     end
