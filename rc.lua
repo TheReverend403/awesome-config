@@ -97,9 +97,8 @@ awful.util.mymainmenu = awful.menu({
     items = {
         { "reload", awesome.restart },
         { "logout", function () awesome.quit() end },
-        { "lock", "awesomeexit lock" },
-        { "reboot", "awesomeexit reboot" },
-        { "shutdown", "awesomeexit shutdown" }
+        { "reboot", "systemctl reboot" },
+        { "shutdown", "systemctl poweroff" }
     }
 })
 -- }}}
@@ -155,10 +154,6 @@ globalkeys = gears.table.join(
     -- rofimoji
     awful.key({ modkey, "Shift" }, "e", function() awful.spawn("emoji") end,
         { description = "emoji picker", group = "hotkeys" }),
-
-    -- X screen locker
-    awful.key({ modkey }, "l", function() awful.spawn("awesomeexit lock") end,
-        { description = "lock screen", group = "hotkeys" }),
 
     -- Hotkeys
     awful.key({ modkey }, "h", hotkeys_popup.show_help,
