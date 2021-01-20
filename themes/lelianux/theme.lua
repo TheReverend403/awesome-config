@@ -33,8 +33,8 @@ theme.color = {
 theme.dir = string.format("%s/themes/lelianux", gears.filesystem.get_configuration_dir())
 theme.wallpaper = string.format("%s/wall.png", theme.dir)
 
-theme.font = "Roboto Medium 12"
-theme.monospace_font = "Source Code Pro Medium 12"
+theme.font = "Roboto Medium 13"
+theme.monospace_font = "Source Code Pro Medium 13"
 
 theme.fg_normal = theme.color.foreground
 theme.fg_focus = theme.color.magenta

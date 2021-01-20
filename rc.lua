@@ -152,7 +152,7 @@ globalkeys = gears.table.join(
         { description = "upload text from clipboard", group = "hotkeys" }),
 
     -- rofimoji
-    awful.key({ modkey, "Shift" }, "e", function() awful.spawn("emoji") end,
+    awful.key({ modkey, "Shift" }, "e", function() awful.spawn("rofimoji") end,
         { description = "emoji picker", group = "hotkeys" }),
 
     -- Hotkeys
@@ -287,7 +287,7 @@ globalkeys = gears.table.join(
     awful.key({ modkey }, "t", function() awful.spawn("telegram-desktop") end,
         { description = "telegram", group = "launcher" }),
 
-    awful.key({ modkey }, "m", function() awful.spawn(string.format("%s --dimensions %s %s --title=ncmpcpp -e ncmpcpp", terminal, 115, 30)) end,
+    awful.key({ modkey }, "m", function() awful.spawn(string.format("%s --option window.dimensions.columns=%s --option window.dimensions.lines=%s --title=ncmpcpp -e ncmpcpp", terminal, 115, 30)) end,
         { description = "music", group = "launcher" }),
 
     awful.key({ modkey }, "d", function () awful.spawn("rofi -show run") end,
