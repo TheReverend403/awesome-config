@@ -133,7 +133,6 @@ theme.vpn = awful.widget.watch("ip addr show wg0", 0.1,
 
 -- Separators
 local spr = wibox.widget.textbox(markup(theme.color.gray, "  ││  "))
-local space = wibox.widget.textbox(" ")
 
 function theme.at_screen_connect(s)
     -- If wallpaper is a function, call it with the screen
@@ -166,7 +165,10 @@ function theme.at_screen_connect(s)
                 s.mytaglist,
                 s.mypromptbox,
             },
-            space,
+            {
+                -- Middle widget, empty.
+                layout = wibox.layout.flex.horizontal,
+            },
             {
                 -- Right widgets
                 layout = wibox.layout.fixed.horizontal,
