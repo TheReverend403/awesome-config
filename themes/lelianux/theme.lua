@@ -33,7 +33,7 @@ theme.color = {
 theme.dir = string.format("%s/themes/lelianux", gears.filesystem.get_configuration_dir())
 theme.wallpaper = string.format("%s/wall.png", theme.dir)
 
-theme.font = "Roboto Medium 13"
+theme.font = "Roboto 13"
 theme.monospace_font = "Source Code Pro Medium 13"
 
 theme.fg_normal = theme.color.foreground
@@ -45,6 +45,8 @@ theme.bg_urgent = theme.color.background
 
 theme.taglist_fg_empty = theme.color.gray
 
+theme.wibox_left_margin = dpi(0)
+theme.wibox_right_margin = dpi(5)
 theme.wibar_height = dpi(25)
 
 theme.border_width = dpi(2)
@@ -73,7 +75,8 @@ theme.hotkeys_modifiers_fg = theme.color.magenta
 theme.hotkeys_group_margin = dpi(20)
 
 -- Clock
-local date = wibox.widget.textclock(markup(theme.fg_normal, markup.font(theme.font, "%a %d %b - %R")))
+local date = wibox.widget.textclock(markup(theme.fg_normal, markup.font(theme.font, "%a %d %b")))
+local time = wibox.widget.textclock(markup(theme.fg_normal, markup.font(theme.font, "%R")))
 
 -- Calendar
 theme.cal = lain.widget.cal({
@@ -152,24 +155,30 @@ function theme.at_screen_connect(s)
     s.mywibox = awful.wibar({ position = "top", screen = s, height = theme.wibar_height, bg = theme.bg_normal, fg = theme.fg_normal })
 
     s.mywibox:setup {
-        layout = wibox.layout.align.horizontal,
+        widget = wibox.container.margin,
+        left = theme.wibox_left_margin,
+        right = theme.wibox_right_margin,
         {
-            -- Left widgets
-            layout = wibox.layout.fixed.horizontal,
-            s.mytaglist,
-            s.mypromptbox,
-        },
-        space,
-        {
-            -- Right widgets
-            layout = wibox.layout.fixed.horizontal,
-            wibox.widget.systray(),
-            wibox.container.background(theme.mpd.widget, theme.bg_focus),
-            spr,
-            theme.vpn,
-            spr,
-            date,
+            layout = wibox.layout.align.horizontal,
+            {
+                -- Left widgets
+                layout = wibox.layout.fixed.horizontal,
+                s.mytaglist,
+                s.mypromptbox,
+            },
             space,
+            {
+                -- Right widgets
+                layout = wibox.layout.fixed.horizontal,
+                wibox.widget.systray(),
+                wibox.container.background(theme.mpd.widget, theme.bg_focus),
+                spr,
+                theme.vpn,
+                spr,
+                time,
+                spr,
+                date,
+            },
         },
     }
 end
