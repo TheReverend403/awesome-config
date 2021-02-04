@@ -34,7 +34,7 @@ theme.dir = string.format("%s/themes/lelianux", gears.filesystem.get_configurati
 theme.wallpaper = string.format("%s/wall.png", theme.dir)
 
 theme.font = "Roboto 13"
-theme.monospace_font = "Source Code Pro Medium 13"
+theme.monospace_font = "JetBrains Mono 13"
 
 theme.fg_normal = theme.color.foreground
 theme.fg_focus = theme.color.magenta
@@ -177,9 +177,9 @@ function theme.at_screen_connect(s)
                 spr,
                 theme.vpn,
                 spr,
-                time,
-                spr,
                 date,
+                spr,
+                time,
             },
         },
     }
