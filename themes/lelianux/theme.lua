@@ -33,8 +33,8 @@ theme.color = {
 theme.dir = string.format("%s/themes/lelianux", gears.filesystem.get_configuration_dir())
 theme.wallpaper = string.format("%s/wall.png", theme.dir)
 
-theme.font = "Roboto 13"
-theme.monospace_font = "JetBrains Mono 13"
+theme.font = "sans 13"
+theme.monospace_font = "monospace 13"
 
 theme.fg_normal = theme.color.foreground
 theme.fg_focus = theme.color.magenta
@@ -80,14 +80,14 @@ local time = wibox.widget.textclock(markup(theme.fg_normal, markup.font(theme.fo
 
 -- Calendar
 theme.cal = lain.widget.cal({
-    attach_to = { date },
-    icons = "",
-    notification_preset = {
-        font = theme.monospace_font,
-        fg = theme.fg_normal,
-        bg = theme.bg_normal
-    }
-})
+        attach_to = { date },
+        icons = "",
+        notification_preset = {
+            font = theme.monospace_font,
+            fg = theme.fg_normal,
+            bg = theme.bg_normal
+        }
+    })
 
 -- MPD
 local function format_time(s)
@@ -95,28 +95,28 @@ local function format_time(s)
 end
 
 theme.mpd = lain.widget.mpd({
-    timeout = 1,
-    notify = "off",
-    settings = function()
-        local artist = string.format(" %s ", mpd_now.artist)
-        local title = mpd_now.title
-        local playing_status = ""
+        timeout = 1,
+        notify = "off",
+        settings = function()
+            local artist = string.format(" %s ", mpd_now.artist)
+            local title = mpd_now.title
+            local playing_status = ""
 
-        if mpd_now.state == "play" then
-            if mpd_now.time ~= "N/A" and mpd_now.elapsed ~= "N/A" then
-                playing_status = string.format(" (%s/%s)", format_time(mpd_now.elapsed), format_time(mpd_now.time))
-                playing_status = markup(theme.color.gray, playing_status)
+            if mpd_now.state == "play" then
+                if mpd_now.time ~= "N/A" and mpd_now.elapsed ~= "N/A" then
+                    playing_status = string.format(" (%s/%s)", format_time(mpd_now.elapsed), format_time(mpd_now.time))
+                    playing_status = markup(theme.color.gray, playing_status)
+                end
+            elseif mpd_now.state == "pause" then
+                playing_status = markup(theme.color.gray, " (paused)")
+            else
+                artist = ""
+                title = ""
             end
-        elseif mpd_now.state == "pause" then
-            playing_status = markup(theme.color.gray, " (paused)")
-        else
-            artist = ""
-            title = ""
-        end
 
-        widget:set_markup(markup.font(theme.font, string.format("%s%s%s", markup(theme.color.magenta, artist), title, playing_status)))
-    end
-})
+            widget:set_markup(markup.font(theme.font, string.format("%s%s%s", markup(theme.color.magenta, artist), title, playing_status)))
+        end
+    })
 
 -- VPN status
 theme.vpn = awful.widget.watch("ip addr show wg0", 0.1,
@@ -129,7 +129,7 @@ theme.vpn = awful.widget.watch("ip addr show wg0", 0.1,
         end
         widget:set_markup(markup(status_color, markup.font(theme.font, "VPN")))
     end
-)
+    )
 
 -- Separators
 local spr = wibox.widget.textbox(markup(theme.color.gray, "  ││  "))
@@ -144,9 +144,9 @@ function theme.at_screen_connect(s)
 
     for idx = 1, 9 do
         awful.tag.add(tostring(idx), { 
-            layout = awful.layout.suit.corner.nw,
-            screen = s,
-        })
+                layout = awful.layout.suit.corner.nw,
+                screen = s,
+            })
     end
 
     s.mypromptbox = awful.widget.prompt()

@@ -140,6 +140,7 @@ root.buttons(gears.table.join(awful.button({}, 3, function() awful.util.mymainme
 
 -- {{{ Key bindings
 globalkeys = gears.table.join(
+    -- Hotkeys
     -- Take a screenshot
     awful.key({}, "Print", function() awful.spawn("pstepw") end,
         { description = "take a screenshot", group = "hotkeys" }),
@@ -155,10 +156,10 @@ globalkeys = gears.table.join(
     awful.key({ modkey, "Shift" }, "e", function() awful.spawn("rofimoji") end,
         { description = "emoji picker", group = "hotkeys" }),
 
-    -- Hotkeys
     awful.key({ modkey }, "h", hotkeys_popup.show_help,
         { description = "show help", group = "awesome" }),
 
+    -- Client manipulation
     -- By direction client focus
     awful.key({ modkey }, "Down",
         function()
@@ -442,7 +443,7 @@ awful.rules.rules = {
                 "Gucharmap", "Galculator", "mpv", "vim", "ncmpcpp", "Deluge",
                 "Xarchiver", "Pinentry-gtk-2", "Sxiv", "Pavucontrol", "mgba-sdl", "mgba-qt",
                 "mGBA", "Thunar", "File-roller", "float-term", "Lxappearance", "Pavucontrol",
-                "dwarftherapist", "Dwarf_Fortress", "SoundCenSeGTK", "Nvidia-settings", "Code",
+                "dwarftherapist", "Dwarf_Fortress", "SoundCenSeGTK", "Nvidia-settings",
                 "minecraft-launcher", "jetbrains-pycharm", "Virt-manager", "net-technicpack-launcher-LauncherMain", "Spek", "GParted",
             },
             name = { "Friends List", "float-term", "Minecraft.*", "ncmpcpp", "PyLNP", "Address Book", "Thunderbird Preferences" },
