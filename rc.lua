@@ -87,7 +87,7 @@ local function run_once(cmd_arr)
 end
 
 if not file_exists(string.format("%s/.noautostart", os.getenv("HOME"))) then
-    run_once({browser, "telegram", irc})
+    run_once({browser, "telegram"})
 end
 
 -- }}}
@@ -440,16 +440,57 @@ awful.rules.rules = {
     {
         rule_any = {
             class = {
-                "Gucharmap", "Galculator", "mpv", "vim", "ncmpcpp", "Deluge",
-                "Xarchiver", "Pinentry-gtk-2", "Sxiv", "Pavucontrol", "mgba-sdl", "mgba-qt",
-                "mGBA", "Thunar", "File-roller", "float-term", "Lxappearance", "Pavucontrol",
-                "dwarftherapist", "Dwarf_Fortress", "SoundCenSeGTK", "Nvidia-settings",
-                "minecraft-launcher", "jetbrains-pycharm", "Virt-manager", "net-technicpack-launcher-LauncherMain", "Spek", "GParted",
+                "Gucharmap",
+                "Galculator",
+                "mpv",
+                "vim",
+                "ncmpcpp",
+                "Deluge",
+                "Xarchiver",
+                "Pinentry-gtk-2",
+                "Sxiv",
+                "Pavucontrol",
+                "mgba-sdl",
+                "mgba-qt",
+                "mGBA",
+                "Thunar",
+                "File-roller",
+                "float-term",
+                "Lxappearance",
+                "Pavucontrol",
+                "dwarftherapist",
+                "Dwarf_Fortress",
+                "SoundCenSeGTK",
+                "Nvidia-settings",
+                "minecraft-launcher",
+                "jetbrains-pycharm",
+                "jetbrains-clion",
+                "Virt-manager",
+                "Spek",
+                "GParted",
+                "Code"
             },
-            name = { "Friends List", "float-term", "Minecraft.*", "ncmpcpp", "PyLNP", "Address Book", "Thunderbird Preferences" },
-            role = { "task_dialog", "pop-up", "GtkFileChooserDialog" },
-            type = { "dialog" },
-            instance = { "plugin-container", "Msgcompose" }
+            name = {
+                "Friends List",
+                "float-term",
+                "Minecraft.*",
+                "ncmpcpp",
+                "PyLNP",
+                "Address Book",
+                "Thunderbird Preferences"
+            },
+            role = {
+                "task_dialog",
+                "pop-up",
+                "GtkFileChooserDialog"
+            },
+            type = {
+                "dialog"
+            },
+            instance = {
+                "plugin-container",
+                "Msgcompose"
+            }
         },
         properties = { floating = true }
     },
