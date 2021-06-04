@@ -79,15 +79,15 @@ local date = wibox.widget.textclock(markup(theme.fg_normal, markup.font(theme.fo
 local time = wibox.widget.textclock(markup(theme.fg_normal, markup.font(theme.font, "%R")))
 
 -- Calendar
-theme.cal = lain.widget.cal({
-        attach_to = { date },
-        icons = "",
-        notification_preset = {
-            font = theme.monospace_font,
-            fg = theme.fg_normal,
-            bg = theme.bg_normal
-        }
-    })
+-- theme.cal = lain.widget.cal({
+--         attach_to = { date },
+--         icons = "",
+--         notification_preset = {
+--             font = theme.monospace_font,
+--             fg = theme.fg_normal,
+--             bg = theme.bg_normal
+--         }
+--     })
 
 -- MPD
 local function format_time(s)

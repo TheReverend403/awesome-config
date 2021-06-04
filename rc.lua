@@ -87,7 +87,7 @@ local function run_once(cmd_arr)
 end
 
 if not file_exists(string.format("%s/.noautostart", os.getenv("HOME"))) then
-    run_once({browser, "telegram"})
+    run_once({browser, irc})
 end
 
 -- }}}
