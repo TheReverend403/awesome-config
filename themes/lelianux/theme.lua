@@ -77,6 +77,7 @@ theme.hotkeys_group_margin = dpi(20)
 -- Separators
 local spr = wibox.widget.textbox(markup(theme.color.gray, "  ││  "))
 local autohide_spr = wibox.widget.textbox(markup(theme.color.gray, "  ││  "))
+autohide_spr.visible = false
 
 -- Clock
 local date = wibox.widget.textclock(markup(theme.fg_normal, markup.font(theme.font, "%a %d %b")))
@@ -102,7 +103,7 @@ theme.mpd = lain.widget.mpd({
         timeout = 1,
         notify = "off",
         settings = function()
-            local artist = string.format(" %s ", mpd_now.artist)
+            local artist = string.format("%s ", mpd_now.artist)
             local title = mpd_now.title
             local playing_status = ""
 
