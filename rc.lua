@@ -87,7 +87,7 @@ local function run_once(cmd_arr)
 end
 
 if not file_exists(string.format("%s/.noautostart", os.getenv("HOME"))) then
-    run_once({browser, irc})
+    run_once({browser, "telegram", irc})
 end
 
 -- }}}
@@ -468,7 +468,9 @@ awful.rules.rules = {
                 "Virt-manager",
                 "Spek",
                 "GParted",
-                "Code"
+                "Code",
+                "Katana-MK2-FxFloorBoard",
+                "feh",
             },
             name = {
                 "Friends List",
@@ -482,6 +484,7 @@ awful.rules.rules = {
             role = {
                 "task_dialog",
                 "pop-up",
+                "page-info",
                 "GtkFileChooserDialog"
             },
             type = {
@@ -489,7 +492,8 @@ awful.rules.rules = {
             },
             instance = {
                 "plugin-container",
-                "Msgcompose"
+                "Msgcompose",
+                "Devtools"
             }
         },
         properties = { floating = true }

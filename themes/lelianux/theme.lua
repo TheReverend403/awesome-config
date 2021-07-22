@@ -74,9 +74,13 @@ theme.hotkeys_description_font = theme.font
 theme.hotkeys_modifiers_fg = theme.color.magenta
 theme.hotkeys_group_margin = dpi(20)
 
+-- Separators
+local spr = wibox.widget.textbox(markup(theme.color.gray, "  ││  "))
+local autohide_spr = wibox.widget.textbox(markup(theme.color.gray, "  ││  "))
+
 -- Clock
 local date = wibox.widget.textclock(markup(theme.fg_normal, markup.font(theme.font, "%a %d %b")))
-local time = wibox.widget.textclock(markup(theme.fg_normal, markup.font(theme.font, "%R")))
+local time = wibox.widget.textclock(markup(theme.fg_normal, markup.font(theme.font, "%R")), 1)
 
 -- Calendar
 -- theme.cal = lain.widget.cal({
@@ -103,15 +107,18 @@ theme.mpd = lain.widget.mpd({
             local playing_status = ""
 
             if mpd_now.state == "play" then
+                autohide_spr.visible = true
                 if mpd_now.time ~= "N/A" and mpd_now.elapsed ~= "N/A" then
                     playing_status = string.format(" (%s/%s)", format_time(mpd_now.elapsed), format_time(mpd_now.time))
                     playing_status = markup(theme.color.gray, playing_status)
                 end
             elseif mpd_now.state == "pause" then
                 playing_status = markup(theme.color.gray, " (paused)")
+                autohide_spr.visible = true
             else
                 artist = ""
                 title = ""
+                autohide_spr.visible = false
             end
 
             widget:set_markup(markup.font(theme.font, string.format("%s%s%s", markup(theme.color.magenta, artist), title, playing_status)))
@@ -119,7 +126,7 @@ theme.mpd = lain.widget.mpd({
     })
 
 -- VPN status
-theme.vpn = awful.widget.watch("ip addr show wg0", 0.1,
+theme.vpn = awful.widget.watch("ip addr show wg0", 1,
     function(widget, stdout, stderr, exitreason, exitcode)
         local status_color
         if exitcode ~= 0 then
@@ -130,9 +137,6 @@ theme.vpn = awful.widget.watch("ip addr show wg0", 0.1,
         widget:set_markup(markup(status_color, markup.font(theme.font, "VPN")))
     end
     )
-
--- Separators
-local spr = wibox.widget.textbox(markup(theme.color.gray, "  ││  "))
 
 function theme.at_screen_connect(s)
     -- If wallpaper is a function, call it with the screen
@@ -173,6 +177,7 @@ function theme.at_screen_connect(s)
                 -- Right widgets
                 layout = wibox.layout.fixed.horizontal,
                 wibox.widget.systray(),
+                autohide_spr,
                 wibox.container.background(theme.mpd.widget, theme.bg_focus),
                 spr,
                 theme.vpn,
