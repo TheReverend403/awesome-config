@@ -49,6 +49,8 @@ theme.wibox_left_margin = dpi(0)
 theme.wibox_right_margin = dpi(5)
 theme.wibar_height = dpi(25)
 
+theme.systray_icon_spacing = dpi(10)
+
 theme.border_width = dpi(2)
 theme.border_normal = theme.color.gray
 theme.border_focus = theme.color.magenta
@@ -103,26 +105,25 @@ theme.mpd = lain.widget.mpd({
         timeout = 1,
         notify = "off",
         settings = function()
-            local artist = string.format("%s ", mpd_now.artist)
-            local title = mpd_now.title
+            local artist = string.format("%s ", markup(theme.color.magenta, mpd_now.artist))
+            local title = markup(theme.color.foreground, mpd_now.title)
             local playing_status = ""
+            autohide_spr.visible = true
+            widget.visible = true
 
             if mpd_now.state == "play" then
-                autohide_spr.visible = true
                 if mpd_now.time ~= "N/A" and mpd_now.elapsed ~= "N/A" then
                     playing_status = string.format(" (%s/%s)", format_time(mpd_now.elapsed), format_time(mpd_now.time))
                     playing_status = markup(theme.color.gray, playing_status)
                 end
             elseif mpd_now.state == "pause" then
                 playing_status = markup(theme.color.gray, " (paused)")
-                autohide_spr.visible = true
             else
-                artist = ""
-                title = ""
                 autohide_spr.visible = false
+                widget.visible = false
             end
 
-            widget:set_markup(markup.font(theme.font, string.format("%s%s%s", markup(theme.color.magenta, artist), title, playing_status)))
+            widget:set_markup(markup.font(theme.font, string.format("%s%s%s", artist, title, playing_status)))
         end
     })
 
@@ -138,6 +139,8 @@ theme.vpn = awful.widget.watch("ip addr show wg0", 1,
         widget:set_markup(markup(status_color, markup.font(theme.font, "VPN")))
     end
     )
+
+theme.systray = wibox.widget.systray(true)
 
 function theme.at_screen_connect(s)
     -- If wallpaper is a function, call it with the screen
@@ -177,7 +180,7 @@ function theme.at_screen_connect(s)
             {
                 -- Right widgets
                 layout = wibox.layout.fixed.horizontal,
-                wibox.widget.systray(),
+                theme.systray,
                 autohide_spr,
                 wibox.container.background(theme.mpd.widget, theme.bg_focus),
                 spr,
