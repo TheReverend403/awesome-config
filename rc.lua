@@ -87,7 +87,7 @@ local function run_once(cmd_arr)
 end
 
 if not file_exists(string.format("%s/.noautostart", os.getenv("HOME"))) then
-    run_once({browser, "telegram", irc})
+    run_once({browser, "telegram"})
 end
 
 -- }}}
@@ -463,6 +463,7 @@ awful.rules.rules = {
                 "SoundCenSeGTK",
                 "Nvidia-settings",
                 "minecraft-launcher",
+                "gdlauncher",
                 "jetbrains-pycharm",
                 "jetbrains-clion",
                 "Virt-manager",
@@ -479,7 +480,8 @@ awful.rules.rules = {
                 "ncmpcpp",
                 "PyLNP",
                 "Address Book",
-                "Thunderbird Preferences"
+                "Thunderbird Preferences",
+                "EasyEffects",
             },
             role = {
                 "task_dialog",
