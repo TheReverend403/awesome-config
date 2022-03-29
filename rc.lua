@@ -285,7 +285,7 @@ globalkeys = gears.table.join(
     awful.key({ modkey }, "i", function() awful.spawn(irc) end,
         { description = "irc", group = "launcher" }),
 
-    awful.key({ modkey }, "t", function() awful.spawn("telegram-desktop") end,
+    awful.key({ modkey }, "t", function() awful.spawn("telegram") end,
         { description = "telegram", group = "launcher" }),
 
     awful.key({ modkey }, "m", function() awful.spawn(string.format("%s --option window.dimensions.columns=%s --option window.dimensions.lines=%s --title=ncmpcpp -e ncmpcpp", terminal, 115, 30)) end,
@@ -402,7 +402,7 @@ awful.rules.rules = {
     },
 
     {
-        rule_any = { class = { "Firefox", "Chromium-browser-chromium" }, },
+        rule_any = { class = { "firefox", "Chromium-browser-chromium" }, },
         properties = { screen = 1, tag = awful.util.tagnames[1] }
     },
 
@@ -412,8 +412,8 @@ awful.rules.rules = {
     },
 
     {
-        rule = { name = "weechat" },
-        properties = { screen = 1, tag = awful.util.tagnames[3] }
+        rule = { class = "Slack" },
+        properties = { screen = 1, tag = awful.util.tagnames[8] }
     },
 
     {
@@ -472,6 +472,11 @@ awful.rules.rules = {
                 "Code",
                 "Katana-MK2-FxFloorBoard",
                 "feh",
+                "QjackCtl",
+                "org.remmina.Remmina",
+                "Mednaffe",
+                "obs",
+                "Jitsi Meet",
             },
             name = {
                 "Friends List",
@@ -482,6 +487,7 @@ awful.rules.rules = {
                 "Address Book",
                 "Thunderbird Preferences",
                 "EasyEffects",
+                "Krita - Edit Text",
             },
             role = {
                 "task_dialog",
