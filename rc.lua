@@ -95,10 +95,11 @@ end
 -- {{{ Menu
 awful.util.mymainmenu = awful.menu({
     items = {
-        { "reload", awesome.restart },
-        { "logout", function () awesome.quit() end },
-        { "reboot", "systemctl reboot" },
-        { "shutdown", "systemctl poweroff" }
+        { "lock", "awesomeexit lock" },
+        { "reload", "awesomeexit reload" },
+        { "logout", "awesomeexit logout" },
+        { "reboot", "awesomeexit reboot" },
+        { "shutdown", "awesomeexit poweroff" }
     }
 })
 -- }}}
@@ -226,6 +227,19 @@ globalkeys = gears.table.join(
     awful.key({ modkey, "Shift" }, "r", awesome.restart,
         { description = "reload awesome", group = "awesome" }),
 
+    -- Show/Hide Wibox
+    awful.key({ modkey }, "`",
+        function()
+            for s in screen do
+                s.mywibox.visible = not s.mywibox.visible
+            end
+        end,
+        { description = "toggle wibox", group = "awesome" }),
+
+    -- Screen lock
+    awful.key({ modkey }, "l", function () awful.spawn("awesomeexit lock") end,
+        { description = "lock screen", group = "awesome" }),
+
     -- MPD control
     awful.key({ "Control", altkey }, "Up",
         function()
@@ -293,6 +307,7 @@ globalkeys = gears.table.join(
 
     awful.key({ modkey }, "d", function () awful.spawn("rofi -show run") end,
         {description = "run prompt", group = "launcher"}),
+
 
     awful.key({}, "XF86Calculator", function() awful.spawn("galculator") end,
         { description = "calculator", group = "launcher" }),
@@ -403,7 +418,7 @@ awful.rules.rules = {
 
     {
         rule_any = { class = { "firefox", "Chromium-browser-chromium" }, },
-        properties = { screen = 1, tag = awful.util.tagnames[1] }
+        properties = { screen = 1, tag = awful.util.tagnames[1], maximized = false }
     },
 
     {
@@ -441,7 +456,7 @@ awful.rules.rules = {
         rule_any = {
             class = {
                 "Gucharmap",
-                "Galculator",
+                "Gnome-calculator",
                 "mpv",
                 "vim",
                 "ncmpcpp",
@@ -477,6 +492,15 @@ awful.rules.rules = {
                 "Mednaffe",
                 "obs",
                 "Jitsi Meet",
+                "mupen64plus-gui",
+                "Gcolor3",
+                "helvum",
+                "imv",
+                "PolyMC",
+                "gnome-calculator",
+                "fr.handbrake.ghb",
+                "Ghb",
+                "Seahorse",
             },
             name = {
                 "Friends List",
@@ -488,6 +512,7 @@ awful.rules.rules = {
                 "Thunderbird Preferences",
                 "EasyEffects",
                 "Krita - Edit Text",
+                "Flatseal",
             },
             role = {
                 "task_dialog",
