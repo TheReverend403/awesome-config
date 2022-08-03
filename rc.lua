@@ -464,7 +464,7 @@ awful.rules.rules = {
     },
 
     {
-        rule = { class = "Minecraft*" },
+        rule = { class = "Minecraft.*" },
         properties = { maximized = true, floating = true }
     },
 
@@ -480,7 +480,7 @@ awful.rules.rules = {
     },
 
     {
-        rule = { class = "jetbrains-pycharm", name = "splash" },
+        rule = { class = "jetbrains-.*", name = "splash" },
         properties = { floating = true }
     },
 
