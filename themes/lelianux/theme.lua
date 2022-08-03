@@ -1,4 +1,3 @@
-local os = { getenv = os.getenv }
 local gears = require("gears")
 local lain = require("lain")
 local awful = require("awful")

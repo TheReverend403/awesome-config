@@ -1,14 +1,10 @@
-local awesome, client, mouse, screen, tag = awesome, client, mouse, screen, tag
-local ipairs, string, os, table, tostring, tonumber, type = ipairs, string, os, table, tostring, tonumber, type
-
 local gears = require("gears")
 local awful = require("awful")
-require("awful.autofocus")
-local wibox = require("wibox")
 local beautiful = require("beautiful")
 local naughty = require("naughty")
-local lain = require("lain")
 local hotkeys_popup = require("awful.hotkeys_popup").widget
+
+require("awful.autofocus")
 
 -- {{{ Error handling
 if awesome.startup_errors then
@@ -45,7 +41,14 @@ local irc = string.format("%s --title=weechat -e weechat", terminal)
 -- }}}
 
 awful.util.terminal = terminal
-awful.util.tagnames = { "1", "2", "3", "4", "5" , "6", "7", "8", "9" }
+awful.util.tagnames = { "1", "2", "3", "4", "5", "6", "7", "8", "9" }
+awful.layout.layouts = {
+    awful.layout.suit.floating,
+    awful.layout.suit.tile,
+    awful.layout.suit.tile.left,
+    awful.layout.suit.tile.bottom,
+    awful.layout.suit.tile.top,
+}
 
 awful.util.taglist_buttons = gears.table.join(awful.button({}, 1, function(t) t:view_only() end),
     awful.button({ modkey }, 1, function(t)
@@ -87,7 +90,7 @@ local function run_once(cmd_arr)
 end
 
 if not file_exists(string.format("%s/.noautostart", os.getenv("HOME"))) then
-    run_once({browser, "telegram"})
+    run_once({ browser, "telegram" })
 end
 
 -- }}}
@@ -120,7 +123,7 @@ screen.connect_signal("property::geometry", function(s)
 end)
 
 -- No borders when rearranging only 1 non-floating or maximized client
-screen.connect_signal("arrange", function (s)
+screen.connect_signal("arrange", function(s)
     local only_one = #s.tiled_clients == 1
     for _, c in pairs(s.clients) do
         if only_one and not c.floating or c.maximized then
@@ -141,8 +144,8 @@ root.buttons(gears.table.join(awful.button({}, 3, function() awful.util.mymainme
 
 -- {{{ Key bindings
 globalkeys = gears.table.join(
-    -- Hotkeys
-    -- Take a screenshot
+-- Hotkeys
+-- Take a screenshot
     awful.key({}, "Print", function() awful.spawn("pstepw") end,
         { description = "take a screenshot", group = "hotkeys" }),
 
@@ -203,14 +206,14 @@ globalkeys = gears.table.join(
     awful.key({ modkey, "Shift" }, "Down", function() awful.client.swap.global_bydirection("down") end,
         { description = "swap client by direction", group = "client" }),
 
-    awful.key({ altkey, "Shift" }, "Right", function () awful.tag.incmwfact(0.02) end,
-        { description = "resize client by direction", group = "client"}),
+    awful.key({ altkey, "Shift" }, "Right", function() awful.tag.incmwfact(0.02) end,
+        { description = "resize client by direction", group = "client" }),
 
-    awful.key({ altkey, "Shift" }, "Left", function () awful.tag.incmwfact(-0.02) end,
-        { description = "resize client by direction", group = "client"}),
+    awful.key({ altkey, "Shift" }, "Left", function() awful.tag.incmwfact(-0.02) end,
+        { description = "resize client by direction", group = "client" }),
 
-    awful.key({ altkey, "Shift" }, "Down", function () awful.client.incwfact(0.02) end,
-        { description = "resize client by direction", group = "client"}),
+    awful.key({ altkey, "Shift" }, "Down", function() awful.client.incwfact(0.02) end,
+        { description = "resize client by direction", group = "client" }),
 
     awful.key({ modkey }, "u", awful.client.urgent.jumpto,
         { description = "jump to urgent client", group = "client" }),
@@ -227,17 +230,19 @@ globalkeys = gears.table.join(
     awful.key({ modkey, "Shift" }, "r", awesome.restart,
         { description = "reload awesome", group = "awesome" }),
 
-    -- Show/Hide Wibox
-    awful.key({ modkey }, "`",
-        function()
-            for s in screen do
-                s.mywibox.visible = not s.mywibox.visible
+    -- Show/hide wibox
+    awful.key({ modkey }, "`", function()
+        for s in screen do
+            s.mywibox.visible = not s.mywibox.visible
+            if s.mybottomwibox then
+                s.mybottomwibox.visible = not s.mybottomwibox.visible
             end
-        end,
+        end
+    end,
         { description = "toggle wibox", group = "awesome" }),
 
     -- Screen lock
-    awful.key({ modkey }, "l", function () awful.spawn("awesomeexit lock") end,
+    awful.key({ modkey }, "l", function() awful.spawn("awesomeexit lock") end,
         { description = "lock screen", group = "awesome" }),
 
     -- MPD control
@@ -302,12 +307,39 @@ globalkeys = gears.table.join(
     awful.key({ modkey }, "t", function() awful.spawn("telegram") end,
         { description = "telegram", group = "launcher" }),
 
-    awful.key({ modkey }, "m", function() awful.spawn(string.format("%s --option window.dimensions.columns=%s --option window.dimensions.lines=%s --title=ncmpcpp -e ncmpcpp", terminal, 115, 30)) end,
+    awful.key({ modkey }, "m",
+        function() awful.spawn(string.format("%s --option window.dimensions.columns=%s --option window.dimensions.lines=%s --title=ncmpcpp -e ncmpcpp"
+                , terminal, 115, 30))
+        end,
         { description = "music", group = "launcher" }),
 
-    awful.key({ modkey }, "d", function () awful.spawn("rofi -show run") end,
-        {description = "run prompt", group = "launcher"}),
+    awful.key({ modkey }, "d", function() awful.spawn("rofi -show run") end,
+        { description = "run prompt", group = "launcher" }),
 
+    -- Layout
+    awful.key({ modkey, altkey }, "l", function() awful.tag.incmwfact(0.05) end,
+        { description = "increase master width factor", group = "layout" }),
+
+    awful.key({ modkey, altkey }, "h", function() awful.tag.incmwfact(-0.05) end,
+        { description = "decrease master width factor", group = "layout" }),
+
+    awful.key({ modkey, "Shift" }, "h", function() awful.tag.incnmaster(1, nil, true) end,
+        { description = "increase the number of master clients", group = "layout" }),
+
+    awful.key({ modkey, "Shift" }, "l", function() awful.tag.incnmaster(-1, nil, true) end,
+        { description = "decrease the number of master clients", group = "layout" }),
+
+    awful.key({ modkey, "Control" }, "h", function() awful.tag.incncol(1, nil, true) end,
+        { description = "increase the number of columns", group = "layout" }),
+
+    awful.key({ modkey, "Control" }, "l", function() awful.tag.incncol(-1, nil, true) end,
+        { description = "decrease the number of columns", group = "layout" }),
+
+    awful.key({ modkey, }, "space", function() awful.layout.inc(1) end,
+        { description = "select next", group = "layout" }),
+
+    awful.key({ modkey, "Shift" }, "space", function() awful.layout.inc(-1) end,
+        { description = "select previous", group = "layout" }),
 
     awful.key({}, "XF86Calculator", function() awful.spawn("galculator") end,
         { description = "calculator", group = "launcher" }),
@@ -432,11 +464,6 @@ awful.rules.rules = {
     },
 
     {
-        rule = { class = "Gimp", role = "gimp-image-window" },
-        properties = { maximized = true }
-    },
-
-    {
         rule = { class = "Minecraft*" },
         properties = { maximized = true, floating = true }
     },
@@ -453,80 +480,77 @@ awful.rules.rules = {
     },
 
     {
+        rule = { class = "jetbrains-pycharm", name = "splash" },
+        properties = { floating = true }
+    },
+
+    {
         rule_any = {
             class = {
-                "Gucharmap",
-                "Gnome-calculator",
-                "mpv",
-                "vim",
-                "ncmpcpp",
                 "Deluge",
-                "Xarchiver",
-                "Pinentry-gtk-2",
-                "Sxiv",
-                "Pavucontrol",
-                "mgba-sdl",
-                "mgba-qt",
-                "mGBA",
-                "Thunar",
-                "File-roller",
-                "float-term",
-                "Lxappearance",
-                "Pavucontrol",
-                "dwarftherapist",
                 "Dwarf_Fortress",
-                "SoundCenSeGTK",
-                "Nvidia-settings",
-                "minecraft-launcher",
-                "gdlauncher",
-                "jetbrains-pycharm",
-                "jetbrains-clion",
-                "Virt-manager",
-                "Spek",
+                "File-roller",
                 "GParted",
-                "Code",
-                "Katana-MK2-FxFloorBoard",
-                "feh",
-                "QjackCtl",
-                "org.remmina.Remmina",
-                "Mednaffe",
-                "obs",
-                "Jitsi Meet",
-                "mupen64plus-gui",
                 "Gcolor3",
+                "Ghb",
+                "Gnome-calculator",
+                "Gucharmap",
+                "Jitsi Meet",
+                "Katana-MK2-FxFloorBoard",
+                "Pavucontrol",
+                "Pavucontrol",
+                "Pinentry-gtk-2",
+                "PolyMC",
+                "QjackCtl",
+                "Seahorse",
+                "SoundCenSeGTK",
+                "Spek",
+                "Sxiv",
+                "Thunar",
+                "Virt-manager",
+                "Xarchiver",
+                "dwarftherapist",
+                "feh",
+                "float-term",
+                "gnome-calculator",
                 "helvum",
                 "imv",
-                "PolyMC",
-                "gnome-calculator",
-                "fr.handbrake.ghb",
-                "Ghb",
-                "Seahorse",
+                "mGBA",
+                "mgba-qt",
+                "mgba-sdl",
+                "minecraft-launcher",
+                "mpv",
+                "mupen64plus-gui",
+                "ncmpcpp",
+                "obs",
+                "org.remmina.Remmina",
+                "vim",
             },
             name = {
-                "Friends List",
-                "float-term",
-                "Minecraft.*",
-                "ncmpcpp",
-                "PyLNP",
                 "Address Book",
-                "Thunderbird Preferences",
                 "EasyEffects",
-                "Krita - Edit Text",
                 "Flatseal",
+                "Friends List",
+                "Krita - Edit Text",
+                "Minecraft.*",
+                "PyLNP",
+                "Thunderbird Preferences",
+                "float-term",
+                "ncmpcpp",
             },
             role = {
-                "task_dialog",
-                "pop-up",
+                "GtkFileChooserDialog",
                 "page-info",
-                "GtkFileChooserDialog"
+                "pop-up",
+                "task_dialog",
             },
             type = {
                 "dialog"
             },
             instance = {
-                "plugin-container",
+                "Devtools",
                 "Msgcompose",
-                "Devtools"
+                "plugin-container",
             }
         },
         properties = { floating = true }
@@ -537,14 +561,14 @@ awful.rules.rules = {
 
 -- {{{ Signals
 -- Signal function to execute when a new client appears.
-client.connect_signal("manage", function (c)
+client.connect_signal("manage", function(c)
     -- Set the windows at the slave,
     -- i.e. put it at the end of others instead of setting it master.
     -- if not awesome.startup then awful.client.setslave(c) end
 
     if awesome.startup and
-      not c.size_hints.user_position
-      and not c.size_hints.program_position then
+        not c.size_hints.user_position
+        and not c.size_hints.program_position then
         -- Prevent clients from being unreachable after screen count changes.
         awful.placement.no_offscreen(c)
     end
@@ -552,7 +576,7 @@ end)
 
 -- Enable sloppy focus, so that focus follows mouse.
 client.connect_signal("mouse::enter", function(c)
-    c:emit_signal("request::activate", "mouse_enter", {raise = false})
+    c:emit_signal("request::activate", "mouse_enter", { raise = false })
 end)
 
 -- {{{ No DPMS for fullscreen clients
